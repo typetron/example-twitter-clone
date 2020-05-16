@@ -1,11 +1,16 @@
 import { Controller, Get } from '@Typetron/Router';
-import { Storage } from '@Typetron/Storage';
+import { Tweet } from 'App/Entities/Tweet';
+import { Tweet as TweetModel } from 'App/Models/Tweet';
 
 @Controller()
 export class HomeController {
 
     @Get()
-    welcome(storage: Storage) {
-        return storage.read('public/index.html');
+    async home() {
+        const tweets = await Tweet
+            .with('user', 'parent', 'replies')
+            .orderBy('createdAt', 'DESC')
+            .get();
+        return TweetModel.from(tweets);
     }
 }

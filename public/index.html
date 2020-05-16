@@ -5,58 +5,102 @@
 	<meta content="width=device-width, initial-scale=1" name="viewport">
 	<title>Typetron</title>
 	<style>
-
-		body {
-			color           : #333;
-			display         : flex;
-			justify-content : center;
-			width           : 100vw;
-			margin          : 0;
-			padding         : 0;
-			text-align      : center;
-		}
-
-		h1.title {
-			font-size : 100px;
-		}
-
-		.options {
+		.content {
 			display        : flex;
 			flex-direction : row;
+			max-width      : 1200px;
+			margin         : 0 auto;
 		}
 
-		a {
+		.content aside {
+			flex : 2;
+			padding : 10px;
+		}
+
+		.content main {
+			flex : 4;
+			padding : 10px;
+		}
+
+		nav a {
+			display : block;
+		}
+
+		.tweet {
+			border : 1px solid #c8c8c8;
+			border-top : none;
+		}
+
+		.tweet-user > span{
+			font-size    : 20px;
+			font-weight  : bold;
+			margin-right : 10px;
+		}
+
+		.tweet-user > a{
+			font-size       : 14px;
 			text-decoration : none;
+			color           : #000;
+			font-weight     : normal;
 		}
 
-		.options a {
-			flex       : 1;
-			text-align : center;
-			color      : #505050;
-			font-size  : 18px;
-		}
-
-		.options a:hover {
-			color : black;
-		}
-
-		.quote {
-			font-style : italic;
-			font-size  : 20px;
-			margin-top : 120px;
-			color      : #afafaf;
+		textarea{
+			width : 100%;
 		}
 	</style>
 </head>
 <body>
-	<div class="section">
-		<h1 class="title">Typetron</h1>
-		<div class="options">
-			<a href="https://typetron.org/tutorials" target="_blank">Tutorials</a>
-			<a href="https://typetron.org/docs" target="_blank">Documentation</a>
-			<a href="https://github.com/typetron/typetron" target="_blank">Github</a>
-		</div>
-		<div class="quote">„Build something awesome”</div>
-	</div>
+	<section class="content">
+		<aside>
+			<nav>
+				<a href="https://typetron.org/tutorials" target="_blank">Tutorials</a>
+				<a href="https://typetron.org/docs" target="_blank">Documentation</a>
+				<a href="https://github.com/typetron/typetron" target="_blank">Github</a>
+			</nav>
+		</aside>
+		<main x-data="homePage()" x-init="getTweets()">
+
+			<p>
+				<label>
+					<textarea cols="30" rows="10" x-model="newTweet"></textarea>
+				</label>
+				<button @click="createTweet()">Tweet</button>
+			</p>
+			<template x-for="tweet of tweets" :key="tweet">
+				<div class="tweet">
+					<div class="tweet-user">
+						<span x-text="tweet.user.name"></span>
+						<a href="#">
+							@
+							<span x-text="tweet.user.username"></span>
+						</a>
+					</div>
+					<p x-text="tweet.content"></p>
+				</div>
+			</template>
+		</main>
+		<aside>
+			right siebar
+		</aside>
+	</section>
+	<script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>
+	<script>
+		function homePage() {
+			return {
+				tweets : [],
+				newTweet : '',
+				async getTweets() {
+					this.tweets = await fetch( '/api' ).then( response => response.json() );
+				},
+				async createTweet() {
+					const newTweet = await fetch( '/api', {method: 'POST', body: this.newTweet} ).then( response => response.json() );
+					console.log('twwet ->', newTweet);
+
+					this.newTweet = '';
+				}
+
+			}
+		}
+	</script>
 </body>
 </html>
