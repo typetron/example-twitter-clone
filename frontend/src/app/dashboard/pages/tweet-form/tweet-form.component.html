@@ -1,0 +1,16 @@
+<form (ngSubmit)="tweet()" [formGroup]="form" nz-form nzLayout="vertical" nzNoColon>
+    <nz-form-item class="margin-t-medium">
+        <nz-form-control>
+            <textarea formControlName="content" id="bio" nz-input placeholder="Wath's new?" type="text"></textarea>
+        </nz-form-control>
+    </nz-form-item>
+
+    <nz-row nzJustify="space-between">
+        <nz-col>
+            <button nz-button nzShape="circle" nzSize="large"><i nz-icon nzType="file-image"></i></button>
+        </nz-col>
+        <nz-col>
+            <button [nzLoading]=loading nz-button nzType="primary">Tweet</button>
+        </nz-col>
+    </nz-row>
+</form>

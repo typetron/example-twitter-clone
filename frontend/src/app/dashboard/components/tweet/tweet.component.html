@@ -1,0 +1,24 @@
+<nz-row nzAlign="middle" nzGutter="8" nzType="flex">
+    <nz-col>
+        <nz-avatar [ngStyle]="{ 'background-color': color }" [nzSize]="50" [nzText]="tweet.user.name" style="vertical-align: middle;color: #888;"></nz-avatar>
+    </nz-col>
+    <nz-col [nzFlex]="1">
+        <h3 style="display: inline-block; margin-right: 8px;">{{tweet.user.name}}</h3>
+        <span nz-typography>@{{tweet.user.username}}</span>
+        -
+        <span nz-typography>{{tweet.createdAt | date: 'dd MMMM y HH:mm'}}</span>
+    </nz-col>
+    <nz-col>
+        <i nz-icon nzType="down"></i>
+    </nz-col>
+</nz-row>
+
+<p class="margin-t-medium">
+    {{tweet.content}}
+</p>
+
+<nz-row nzJustify="space-around" nzType="flex">
+    <span><i nz-icon nzType="comment"></i> {{tweet.comments}}</span>
+    <span><i nz-icon nzType="retweet"></i> {{tweet.retweets}}</span>
+    <span><i nz-icon nzType="heart"></i> {{tweet.likes}}</span>
+</nz-row>

@@ -17,16 +17,24 @@
 			"App/*": [
 				"*"
 			],
+			"Test/*": [
+				"test/*"
+			],
 			"@Typetron/*": [
 				"node_modules/@typetron/framework/*"
+			],
+			"@Data/Models/*": [
+				"Models/*"
 			]
 		}
 	},
 	"include": [
 		"**/*.ts"
+
 	],
 	"exclude": [
 		"test",
+		"frontend",
 		"node_modules"
 	]
 }

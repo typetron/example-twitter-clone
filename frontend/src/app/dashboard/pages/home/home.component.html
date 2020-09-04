@@ -1,0 +1,9 @@
+<div class="page-header">
+    <h2 class="page-title">Home</h2>
+    <app-tweet-form (tweeted)="tweeted($event)"></app-tweet-form>
+</div>
+
+<app-spin *ngIf="!tweets.length"></app-spin>
+<ng-container *ngIf="tweets.length">
+    <app-tweet *ngFor="let tweet of tweets" [tweet]="tweet"></app-tweet>
+</ng-container>

@@ -1,8 +1,10 @@
-import { Column, CreatedAt, ManyToMany, Meta, OneToMany } from '@Typetron/Database';
+import { BelongsToManyOptions, Column, CreatedAt, Options, Relation } from '@Typetron/Database';
 import { User as Authenticable } from '@Typetron/Framework/Auth';
 import { Tweet } from 'App/Entities/Tweet';
+import { Like } from 'App/Entities/Like';
+import { BelongsToMany, HasMany } from '@Typetron/Database/Fields';
 
-@Meta({
+@Options({
     table: 'users'
 })
 export class User extends Authenticable {
@@ -21,15 +23,25 @@ export class User extends Authenticable {
     @Column()
     cover: string;
 
-    @OneToMany(() => Tweet, 'user')
-    tweets: Tweet[];
+    @Relation(() => Like, 'user')
+    likes: HasMany<Like>;
 
-    @ManyToMany(() => User, 'following', 'followers', 'following_id', 'follower_id')
-    followers: User[];
+    @Relation(() => Tweet, 'user')
+    tweets: HasMany<Tweet>;
 
-    @ManyToMany(() => User, 'followers', 'followers', 'follower_id', 'following_id')
-    following: User[];
+    @Relation(() => User, 'following')
+    @BelongsToManyOptions({
+        table: 'followers',
+        column: 'followerId',
+        foreignColumn: 'followingId'
+    })
+    followers: BelongsToMany<User>;
+
+    @Relation(() => User, 'followers')
+    following: BelongsToMany<User>;
 
     @CreatedAt()
     createdAt: Date;
+
+    getUsername = () => 'username';
 }

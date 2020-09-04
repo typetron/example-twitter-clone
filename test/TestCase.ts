@@ -1,5 +1,5 @@
 import { TestCase as BaseTestCase } from '@Typetron/Testing/TestCase';
-import { AppConfig, Application } from '@Typetron/Framework';
+import { Application } from '@Typetron/Framework';
 import * as path from 'path';
 
 export class TestCase extends BaseTestCase {
@@ -12,8 +12,6 @@ export class TestCase extends BaseTestCase {
             return;
         }
         const app = await Application.create(path.join(__dirname, '..'));
-        const config = app.get(AppConfig);
-        console.log(`Started server at: http://localhost:${config.port}`);
         TestCase.app = this.app = app;
     }
 }

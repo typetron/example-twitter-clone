@@ -29,7 +29,8 @@ export class AuthController {
     @Post('login')
     async login(form: LoginForm) {
         return {
-            token: await this.auth.login(form.email, form.password)
+            token: await this.auth.login(form.username, form.password),
+            user: await this.auth.user(),
         };
     }
 }

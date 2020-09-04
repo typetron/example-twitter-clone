@@ -1,14 +1,13 @@
 import { Field, Form, Rules } from '@Typetron/Forms';
-import { Email, Required } from '@Typetron/Validation';
+import { Required } from '@Typetron/Validation';
 
 export class LoginForm extends Form {
 
     @Field()
     @Rules(
-        Required,
-        Email
+        Required
     )
-    email: string;
+    username: string;
 
     @Field()
     @Rules(

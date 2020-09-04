@@ -1,18 +1,5 @@
-import { Field, Model } from '@Typetron/framework/Models';
-
-export class TweetUser extends Model {
-    @Field()
-    id: number;
-
-    @Field()
-    username: string;
-
-    @Field()
-    name: string;
-
-    @Field()
-    photo: string;
-}
+import { Field, FieldMany, Model } from '@Typetron/Models';
+import { User } from './User';
 
 export class Tweet extends Model {
     @Field()
@@ -22,15 +9,24 @@ export class Tweet extends Model {
     content: string;
 
     @Field()
-    user: TweetUser;
+    user: User;
 
     @Field()
-    parent: Tweet;
+    likes: number;
 
     @Field()
+    retweets: number;
+
+    @Field()
+    comments: number;
+
+    @Field()
+    parent?: Tweet;
+
+    @Field()
+    @FieldMany(Tweet)
     replies: Tweet[];
 
     @Field()
     createdAt: Date;
 }
-

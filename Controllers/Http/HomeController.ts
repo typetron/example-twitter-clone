@@ -8,9 +8,11 @@ export class HomeController {
     @Get()
     async home() {
         const tweets = await Tweet
-            .with('user', 'parent', 'replies')
+            .with('user', 'replies')
+            // .withCount('likes')
+            .whereNull('parentId')
             .orderBy('createdAt', 'DESC')
             .get();
-        return TweetModel.from(tweets);
+        return TweetModel.fromMany(tweets);
     }
 }

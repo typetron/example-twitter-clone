@@ -1,28 +1,33 @@
-import { Column, CreatedAt, Entity, ID, ManyToOne, Meta, OneToMany } from '@Typetron/Database';
+import { Column, CreatedAt, Entity, Options, PrimaryColumn, Relation, UpdatedAt } from '@Typetron/Database';
 import { User } from 'App/Entities/User';
+import { Like } from 'App/Entities/Like';
+import { BelongsTo, HasMany } from '@Typetron/Database/Fields';
 
-@Meta({
+@Options({
     table: 'tweets'
 })
 export class Tweet extends Entity {
-    @Column()
-    id: ID;
+    @PrimaryColumn()
+    id: number;
 
     @Column()
     content: string;
 
-    @ManyToOne(() => Tweet, 'replies')
-    parent: Tweet;
+    @Relation(() => Tweet, 'replies')
+    parent: BelongsTo<Tweet>;
 
-    @OneToMany(() => Tweet, 'parent')
-    replies: Tweet[];
+    @Relation(() => Tweet, 'parent')
+    replies: HasMany<Tweet>;
 
-    @ManyToOne(() => User, 'tweets')
-    user: User;
+    @Relation(() => User, 'tweets')
+    user: BelongsTo<User>;
+
+    @Relation(() => Like, 'tweet')
+    likes: HasMany<Like>;
 
     @CreatedAt()
     createdAt: Date;
 
-    @CreatedAt()
+    @UpdatedAt()
     updatedAt: Date;
 }

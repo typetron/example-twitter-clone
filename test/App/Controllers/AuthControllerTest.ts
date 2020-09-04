@@ -1,6 +1,6 @@
 import { suite, test } from '@testdeck/mocha';
 import { expect } from 'chai';
-import { TestCase } from '../../TestCase';
+import { TestCase } from 'Test/TestCase';
 import { Http } from '@Typetron/http';
 
 @suite

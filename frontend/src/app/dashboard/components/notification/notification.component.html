@@ -1,0 +1,12 @@
+<nz-row nzAlign="middle" nzGutter="8" nzType="flex">
+    <nz-col>
+        <i [nzType]="notification.icon" class="icon" nz-icon></i>
+    </nz-col>
+    <nz-col [nzFlex]="1">
+        <nz-avatar *ngFor="let user of notification.users" [ngStyle]="{ 'background-color': color }" [nzSize]="40" [nzText]="user" style="vertical-align: middle;color: #888;margin-left: 16px;"></nz-avatar>
+    </nz-col>
+</nz-row>
+
+<h3>
+    {{notification.title}}
+</h3>

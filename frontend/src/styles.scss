@@ -1,0 +1,92 @@
+@import './theme.scss';
+
+html {
+    overflow: hidden !important;
+}
+
+body {
+    overflow-y: scroll;
+}
+
+
+@each $key, $val in $space {
+    .margin-#{$key} {
+        margin: $val;
+    }
+    .margin-y-#{$key} {
+        margin-top: $val;
+        margin-bottom: $val;
+    }
+    .margin-x-#{$key} {
+        margin-left: $val;
+        margin-right: $val;
+    }
+    .margin-l-#{$key} {
+        margin-left: $val;
+    }
+    .margin-t-#{$key} {
+        margin-top: $val;
+    }
+    .margin-r-#{$key} {
+        margin-right: $val;
+    }
+    .margin-b-#{$key} {
+        margin-bottom: $val;
+    }
+    .padding-#{$key} {
+        padding: $val;
+    }
+    .padding-y-#{$key} {
+        padding-top: $val;
+        padding-bottom: $val;
+    }
+    .padding-x-#{$key} {
+        padding-left: $val;
+        padding-right: $val;
+    }
+    .padding-l-#{$key} {
+        padding-left: $val;
+    }
+    .padding-t-#{$key} {
+        padding-top: $val;
+    }
+    .padding-r-#{$key} {
+        padding-right: $val;
+    }
+    .padding-b-#{$key} {
+        padding-bottom: $val;
+    }
+}
+
+input:focus,
+select:focus,
+textarea:focus,
+a:focus,
+[nz-menu] li:focus,
+button:focus {
+    outline: none;
+}
+
+.page-header {
+    padding: 12px;
+    //display: flex;
+    //align-items: center;
+    background-color: #fff;
+
+    h2.page-title {
+        margin-bottom: 0;
+    }
+}
+
+app-spin {
+    margin-top: 16px;
+}
+
+
+.content {
+    background-color: #fff;
+}
+
+//.ant-modal-wrap{
+//    overflow: hidden !important;
+//}

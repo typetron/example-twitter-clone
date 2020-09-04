@@ -9,25 +9,27 @@
 	},
 	"scripts": {
 		"start": "ts-node-dev -r tsconfig-paths/register --respawn index.ts",
+		"prod": "ts-node -r tsconfig-paths/register index.ts",
+		"frontend": "cd frontend && ng serve",
 		"test": "mocha"
 	},
 	"dependencies": {
-		"@typetron/framework": "^0.0.14",
+		"@typetron/framework": "0.0.14",
 		"reflect-metadata": "^0.1.13",
-		"ts-node": "^8.0.3",
-		"typescript": "^3.8.3"
+		"ts-node": "^8.10.1",
+		"tsconfig-paths": "^3.9.0",
+		"typescript": "3.8.3"
 	},
 	"devDependencies": {
-		"@types/chai": "^4.1.7",
-		"@types/mocha": "^5.2.6",
-		"@types/node": "^10.14.3",
+		"@testdeck/mocha": "^0.1.0",
+		"@types/chai": "^4.2.11",
+		"@types/mocha": "^7.0.2",
+		"@types/node": "^14.0.1",
 		"chai": "^4.2.0",
-		"mocha": "^6.0.2",
+		"mocha": "^7.1.2",
 		"nyc": "^15.0.1",
-		"source-map-support": "^0.5.11",
-		"ts-node-dev": "^1.0.0-pre.39",
-		"tsconfig-paths": "^3.8.0",
-		"tslint": "~5.11.0",
-		"@testdeck/mocha": "0.0.6"
+		"source-map-support": "^0.5.19",
+		"ts-node-dev": "^1.0.0-pre.44",
+		"tslint": "^6.1.2"
 	}
 }

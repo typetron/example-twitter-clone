@@ -1,0 +1,46 @@
+<nz-row nzJustify="center" nzType="flex" style="height: 100vh">
+    <nz-col [nzLg]="24" [nzXl]="16" [nzXs]="24">
+        <nz-row nzType="flex" style="height: 100%; flex-wrap: nowrap">
+            <nz-sider nz-col nzTheme="light" nzWidth="200px">
+                <div class="logo">
+                    <img alt="Tweetron" src="https://typetron.org/images/icon.svg">
+                    <span>weetee</span>
+                </div>
+                <ul nz-menu nzMode="inline">
+                    <li nz-menu-item nzMatchRouter nzMatchRouterExact nzSelected routerLink="">
+                        <i nz-icon nzTheme="outline" nzType="home"></i>
+                        <span>Home</span>
+                    </li>
+                    <li nz-menu-item nzMatchRouter routerLink="explore">
+                        <i nz-icon nzTheme="outline" nzType="global"></i>
+                        <span>Explore</span>
+                    </li>
+                    <li nz-menu-item nzMatchRouter routerLink="notifications">
+                        <i nz-icon nzTheme="outline" nzType="notification"></i>
+                        <span>Notifications</span>
+                    </li>
+                    <li nz-menu-item nzMatchRouter routerLink="profile">
+                        <i nz-icon nzType="user"></i>
+                        <span>Profile</span>
+                    </li>
+                    <li nz-menu-item nzMatchRouter routerLink="settings">
+                        <i nz-icon nzTheme="outline" nzType="setting"></i>
+                        <span>Settings</span>
+                    </li>
+                    <li (click)="logout()" nz-menu-item nzMatchRouter>
+                        <i nz-icon nzTheme="outline" nzType="logout"></i>
+                        <span>Logout</span>
+                    </li>
+                </ul>
+            </nz-sider>
+
+            <nz-layout [nzFlex]="1" class="inner-layout" nz-col>
+                <nz-content>
+                    <router-outlet></router-outlet>
+                </nz-content>
+            </nz-layout>
+
+        </nz-row>
+    </nz-col>
+
+</nz-row>
