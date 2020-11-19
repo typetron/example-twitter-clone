@@ -1,0 +1,75 @@
+<nz-spin class=" margin-y-large" *ngIf="!user"></nz-spin>
+<ng-container *ngIf="user">
+
+
+    <div class="content">
+        <div style="; width: 100%; height: 200px; background-size: cover;background-position: center;"
+             [style]="{backgroundImage: 'url('+ (user.cover? imgPath+'/' + user.cover : 'https://user-images.githubusercontent.com/194400/49531010-48dad180-f8b1-11e8-8d89-1e61320e1d82.png')+')'}"
+        ></div>
+        <nz-row class="padding-x-large" nzAlign="bottom" nzJustify="space-between" style="position: absolute; top:150px; width: 100%;">
+            <nz-avatar [ngStyle]="{backgroundImage: 'url('+imgPath+'/' + user.photo+')', backgroundColor: '#72bbff' }" [nzSize]="100" [nzText]="user.photo ? '' : user.name" style="vertical-align: middle; color: #fff; background-size: cover;background-position: center;">
+            </nz-avatar>
+            <nz-col>
+                <nz-row [nzGutter]="8">
+                    <nz-col>
+                        <button (click)="follow(user)" nz-button nzType="primary" *ngIf="(authService.user$ | async).id !== user.id">
+                            Follow
+                        </button>
+                    </nz-col>
+                    <nz-col>
+                        <button (click)="unfollow(user)" nz-button nzType="primary" *ngIf="(authService.user$ | async).id !== user.id">
+                            Unfollow
+                        </button>
+                    </nz-col>
+                    <nz-col>
+                        <button (click)="showTopicsModal(user)" nz-button nzType="primary">
+                            <i nz-icon nzType="menu"></i>
+                            Topics
+                        </button>
+                    </nz-col>
+                    <nz-col>
+                        <button (click)="showEditModal()" nz-button nzType="primary">
+                            <i nz-icon nzType="edit"></i>
+                            Edit profile
+                        </button>
+                    </nz-col>
+                </nz-row>
+            </nz-col>
+        </nz-row>
+        <div class="padding-x-large" style="margin-top: 50px;font-size: 30px;"><b>{{user.name}}</b></div>
+        <p class="padding-x-large" nz-typography>@{{user.username}}</p>
+        <p class="padding-x-large">{{user.bio}}</p>
+        <nz-row class="padding-x-large" nzGutter="16">
+            <nz-col>
+                <a [routerLink]="['following']"><b>{{user.followingCount}}</b> Following</a>
+            </nz-col>
+            <nz-col>
+                <a [routerLink]="['followers']"><b>{{user.followersCount}}</b> Followers</a>
+            </nz-col>
+        </nz-row>
+    </div>
+
+    <nz-tabset nzLinkRouter nzSize="large">
+        <nz-tab>
+            <a [routerLink]="['.']" *nzTabLink nz-tab-link>Tweets</a>
+            <ng-template nz-tab>
+                <app-tweets></app-tweets>
+            </ng-template>
+        </nz-tab>
+        <nz-tab>
+            <a [queryParams]="{ tab: 'with-replies' }" [routerLink]="['.']" *nzTabLink nz-tab-link queryParamsHandling="merge">
+                Tweets replies
+            </a>
+            <ng-template nz-tab>
+                <app-tweets-and-replies></app-tweets-and-replies>
+            </ng-template>
+        </nz-tab>
+        <nz-tab>
+            <a [queryParams]="{ tab: 'likes' }" [routerLink]="['.']" *nzTabLink nz-tab-link queryParamsHandling="merge">Likes</a>
+            <ng-template nz-tab>
+                <app-likes></app-likes>
+            </ng-template>
+        </nz-tab>
+    </nz-tabset>
+
+</ng-container>

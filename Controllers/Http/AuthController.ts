@@ -1,20 +1,20 @@
-import { Controller, Post } from '@Typetron/Router';
-import { RegisterForm } from 'App/Forms/RegisterForm';
-import { User } from 'App/Entities/User';
-import { User as UserModel } from 'App/Models/User';
-import { LoginForm } from 'App/Forms/LoginForm';
-import { Inject } from '@Typetron/Container';
-import { Auth } from '@Typetron/Framework/Auth';
+import { Controller, Post } from '@Typetron/Router'
+import { RegisterForm } from 'App/Forms/RegisterForm'
+import { User } from 'App/Entities/User'
+import { User as UserModel } from 'App/Models/User'
+import { LoginForm } from 'App/Forms/LoginForm'
+import { Inject } from '@Typetron/Container'
+import { Auth } from '@Typetron/Framework/Auth'
 
 @Controller()
 export class AuthController {
 
     @Inject()
-    auth: Auth;
+    auth: Auth
 
     @Post('register')
     async register(form: RegisterForm) {
-        const user = await User.where('email', form.email).first();
+        const user = await User.where('email', form.email).first()
         if (user) {
             throw new Error('User already exists');
         }
@@ -28,9 +28,12 @@ export class AuthController {
 
     @Post('login')
     async login(form: LoginForm) {
+        const token = await this.auth.login(form.username, form.password)
+        const user = await this.auth.user<User>()
+        await user.loadCount('followers', 'following')
         return {
-            token: await this.auth.login(form.username, form.password),
-            user: await this.auth.user(),
-        };
+            token: token,
+            user: UserModel.from(user),
+        }
     }
 }

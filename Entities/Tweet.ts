@@ -1,33 +1,47 @@
-import { Column, CreatedAt, Entity, Options, PrimaryColumn, Relation, UpdatedAt } from '@Typetron/Database';
-import { User } from 'App/Entities/User';
-import { Like } from 'App/Entities/Like';
-import { BelongsTo, HasMany } from '@Typetron/Database/Fields';
+import { Column, CreatedAt, Entity, Options, PrimaryColumn, Relation, UpdatedAt } from '@Typetron/Database'
+import { User } from './User'
+import { Like } from './Like'
+import { BelongsTo, HasMany } from '@Typetron/Database/Fields'
+import { Media } from './Media'
+import { Notification } from 'App/Entities/Notification'
 
 @Options({
     table: 'tweets'
 })
 export class Tweet extends Entity {
     @PrimaryColumn()
-    id: number;
+    id: number
 
     @Column()
-    content: string;
+    content: string
 
-    @Relation(() => Tweet, 'replies')
-    parent: BelongsTo<Tweet>;
-
-    @Relation(() => Tweet, 'parent')
-    replies: HasMany<Tweet>;
+    @Relation(() => Media, 'tweet')
+    media: HasMany<Media>
 
     @Relation(() => User, 'tweets')
-    user: BelongsTo<User>;
+    user: BelongsTo<User>
 
     @Relation(() => Like, 'tweet')
-    likes: HasMany<Like>;
+    likes: HasMany<Like>
+
+    @Relation(() => Tweet, 'replies')
+    replyParent: BelongsTo<Tweet>
+
+    @Relation(() => Tweet, 'retweets')
+    retweetParent: BelongsTo<Tweet>
+
+    @Relation(() => Tweet, 'replyParent')
+    replies: HasMany<Tweet>
+
+    @Relation(() => Tweet, 'retweetParent')
+    retweets: HasMany<Tweet>
+
+    @Relation(() => Notification, 'tweet')
+    notifications: HasMany<Notification>
 
     @CreatedAt()
-    createdAt: Date;
+    createdAt: Date
 
     @UpdatedAt()
-    updatedAt: Date;
+    updatedAt: Date
 }

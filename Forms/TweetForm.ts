@@ -1,5 +1,6 @@
-import { Field, Form, Rules } from '@Typetron/Forms';
-import { Required } from '@Typetron/Validation';
+import { Field, Form, Rules } from '@Typetron/Forms'
+import { Required } from '@Typetron/Validation'
+import { File } from '@Typetron/Storage'
 
 export class TweetForm extends Form {
 
@@ -7,8 +8,17 @@ export class TweetForm extends Form {
     @Rules(
         Required,
     )
-    content: string;
+    content: string
 
     @Field()
-    parent: number;
+    parent?: number
+
+    @Field()
+    media: File[] = []
+
+    @Field()
+    replyParent?: number
+
+    @Field()
+    retweetParent?: number
 }

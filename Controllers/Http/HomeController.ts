@@ -1,18 +1,27 @@
-import { Controller, Get } from '@Typetron/Router';
-import { Tweet } from 'App/Entities/Tweet';
-import { Tweet as TweetModel } from 'App/Models/Tweet';
+import { Controller, Get, Middleware, Query } from '@Typetron/Router'
+import { Tweet } from 'App/Entities/Tweet'
+import { Tweet as TweetModel } from 'App/Models/Tweet'
+import { AuthMiddleware } from '@Typetron/Framework/Middleware'
+import { User } from 'App/Entities/User'
+import { AuthUser } from '@Typetron/Framework/Auth'
 
 @Controller()
+@Middleware(AuthMiddleware)
 export class HomeController {
 
+    @AuthUser()
+    user: User
+
     @Get()
-    async home() {
+    @Middleware(AuthMiddleware)
+    async home(@Query('page') page: number = 1) {
         const tweets = await Tweet
-            .with('user', 'replies')
-            // .withCount('likes')
-            .whereNull('parentId')
+            .with('media', 'retweetParent.user', 'user', ['likes', query => query.where('userId', this.user.id)])
+            .withCount('likes', 'replies', 'retweets')
+            .whereNull('replyParentId')
             .orderBy('createdAt', 'DESC')
-            .get();
-        return TweetModel.fromMany(tweets);
+            .limit((page - 1) * 10, 10)
+            .get()
+        return TweetModel.fromMany(tweets)
     }
 }

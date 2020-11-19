@@ -1,0 +1,63 @@
+<nz-row nzJustify="center" style="height: 100vh; overflow-y: scroll" (scroll)="addScrollEvent($event)">
+    <nz-col [nzXs]="24" [nzLg]="24" [nzXl]="16">
+        <nz-row style="height: 100%; flex-wrap: nowrap">
+            <nz-sider nz-col nzTheme="light">
+                <div class="logo">
+                    <img alt="Tweetron" src="https://typetron.org/images/icon.svg">
+                    <span>weetee</span>
+                </div>
+                <ul nz-menu nzMode="inline">
+                    <li nz-menu-item nzMatchRouter nzMatchRouterExact nzSelected>
+                        <a routerLink="home">
+                            <i nz-icon nzTheme="outline" nzType="home"></i>
+                            <span>Home</span>
+                        </a>
+                    </li>
+                    <li nz-menu-item nzMatchRouter>
+                        <a routerLink="explore">
+                            <i nz-icon nzTheme="outline" nzType="global"></i>
+                            <span>Explore</span>
+                        </a>
+                    </li>
+                    <li nz-menu-item nzMatchRouter>
+                        <nz-badge [nzCount]="userService.unreadNotifications$ | async" [nzOffset]="[10, 0]">
+                            <a routerLink="notifications">
+                                <i nz-icon nzTheme="outline" nzType="notification"></i>
+                                <span>Notifications</span>
+                            </a>
+                        </nz-badge>
+                    </li>
+                    <li nz-menu-item nzMatchRouter>
+                        <a [routerLink]="[(authService.user$|async)?.username]">
+                            <i nz-icon nzType="user"></i>
+                            <span>Profile</span>
+                        </a>
+                    </li>
+                    <!--                    <li nz-menu-item nzMatchRouter>-->
+                    <!--                        <a routerLink="settings">-->
+                    <!--                            <i nz-icon nzTheme="outline" nzType="setting"></i>-->
+                    <!--                            <span>Settings</span>-->
+                    <!--                        </a>-->
+                    <!--                    </li>-->
+                    <li (click)="logout()" nz-menu-item nzMatchRouter>
+                        <i nz-icon nzTheme="outline" nzType="logout"></i>
+                        <span>Logout</span>
+                    </li>
+                </ul>
+            </nz-sider>
+
+            <nz-layout [nzFlex]="1" class="inner-layout" nz-col>
+                <nz-content>
+                    <router-outlet></router-outlet>
+                </nz-content>
+            </nz-layout>
+
+            <nz-col style=" padding: 24px">
+                <h2>Trends</h2>
+                <h4 *ngFor="let topic of topics">{{topic.name}}</h4>
+            </nz-col>
+
+        </nz-row>
+    </nz-col>
+
+</nz-row>

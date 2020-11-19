@@ -1,0 +1,20 @@
+.content {
+    position: relative;
+    font-size: 110%;
+}
+
+nz-tabset ::ng-deep {
+    nz-tabs-nav.ant-tabs-nav {
+        background: #fff;
+        margin: 0;
+    }
+
+    .ant-tabs-nav-list {
+        width: 100%;
+
+        > div {
+            width: 100%;
+            justify-content: center;
+        }
+    }
+}

@@ -1,0 +1,40 @@
+<form (ngSubmit)="tweet()" [formGroup]="form" nz-form nzLayout="vertical" nzNoColon>
+    <nz-row *ngIf="showParent && replyParent" class="margin-b-medium">
+        <app-tweet [tweet]="replyParent" style="border-radius: 5px; border: 1px solid #ddd" [footer]="false"></app-tweet>
+    </nz-row>
+
+    <nz-form-item class="margin-t-medium">
+        <nz-form-control>
+            <textarea formControlName="content" id="bio" nz-input [placeholder]="placeholder" type="text"></textarea>
+        </nz-form-control>
+    </nz-form-item>
+
+    <nz-row nzJustify="center">
+        <nz-col>
+            <nz-carousel *ngIf="media.length" nzEffect="scrollx" class="tweet-carousel margin-y-medium">
+                <div nz-carousel-content *ngFor="let item of media; let index = index" [style]="{backgroundImage: 'url('+ item +')'}">
+                    <button nz-button nzType="text" nzShape="round" type="button" (click)="removeMedia(index)">
+                        <i nz-icon nzType="close-circle"></i>
+                    </button>
+                </div>
+            </nz-carousel>
+        </nz-col>
+    </nz-row>
+
+    <nz-row *ngIf="showParent && retweetParent" class="margin-b-medium">
+        <app-tweet [tweet]="retweetParent" [footer]="false" style="border-radius: 5px; border: 1px solid #ddd"></app-tweet>
+    </nz-row>
+
+    <nz-row nzJustify="space-between">
+        <nz-col>
+            <nz-upload [nzBeforeUpload]="beforeUpload()" nzMultiple>
+                <button nz-button nzShape="circle" nzSize="large" nz-tooltip="Add media" type="button">
+                    <i nz-icon nzType="file-image"></i>
+                </button>
+            </nz-upload>
+        </nz-col>
+        <nz-col>
+            <button [nzLoading]=loading nz-button nzType="primary">Tweet</button>
+        </nz-col>
+    </nz-row>
+</form>

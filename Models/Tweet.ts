@@ -1,32 +1,39 @@
-import { Field, FieldMany, Model } from '@Typetron/Models';
-import { User } from './User';
+import { Field, FieldMany, Model } from '@Typetron/Models'
+import { User } from './User'
+import { Media } from './Media'
+import { Like } from './Like'
 
 export class Tweet extends Model {
     @Field()
-    id: number;
+    id: number
 
     @Field()
-    content: string;
+    content: string
 
     @Field()
-    user: User;
+    user: User
 
     @Field()
-    likes: number;
+    likesCount = 0
+
+    @FieldMany(Like)
+    likes: Like[] = []
 
     @Field()
-    retweets: number;
+    retweetsCount = 0
 
     @Field()
-    comments: number;
+    replyParent?: Tweet
 
     @Field()
-    parent?: Tweet;
+    retweetParent?: Tweet
 
     @Field()
-    @FieldMany(Tweet)
-    replies: Tweet[];
+    repliesCount = 0
+
+    @FieldMany(Media)
+    media: Media[] = []
 
     @Field()
-    createdAt: Date;
+    createdAt: Date
 }

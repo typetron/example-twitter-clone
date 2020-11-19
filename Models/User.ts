@@ -1,15 +1,37 @@
-import { Field, Model } from '@Typetron/Models';
+import { Field, FieldMany, Model } from '@Typetron/Models'
+import { Topic } from './Topic'
 
 export class User extends Model {
     @Field()
-    id: number;
+    id: number
 
     @Field()
-    username: string;
+    username: string
 
     @Field()
-    name: string;
+    name: string
 
     @Field()
-    photo: string;
+    photo: string
+
+    @Field()
+    cover: string
+
+    @Field()
+    bio?: string
+
+    @Field()
+    followersCount = 0
+
+    @Field()
+    followingCount = 0
+
+    @FieldMany(User)
+    followers: User[] = []
+
+    @FieldMany(User)
+    following: User[] = []
+
+    @FieldMany(Topic)
+    topics: Topic[] = []
 }

@@ -1,19 +1,19 @@
-import { Field, Form } from '@Typetron/Forms';
-import { Image } from '@Typetron/Storage';
+import { Field, Form } from '@Typetron/Forms'
+import { Image } from '@Typetron/Storage'
 
 export class UserForm extends Form {
     @Field()
-    name?: string;
+    name?: string
 
     @Field()
-    username?: string;
+    bio?: string
 
     @Field()
-    bio?: string;
+    photo?: Image | string
 
     @Field()
-    photo?: Image;
+    cover?: Image | string
 
     @Field()
-    cover?: Image;
+    topics: number[] = []
 }

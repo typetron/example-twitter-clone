@@ -1,0 +1,2 @@
+<nz-spin class="margin-t-large" *ngIf="loading"></nz-spin>
+<app-tweet *ngIf="!loading && tweet" [tweet]="tweet" [showReplyForm]=true (tweeted)="load(tweet.id)"></app-tweet>

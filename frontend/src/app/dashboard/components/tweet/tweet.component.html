@@ -1,0 +1,81 @@
+<nz-row [nzGutter]="12" style="flex-wrap: nowrap;">
+    <nz-col>
+        <a [routerLink]="['/', tweet.user?.username]">
+            <nz-avatar [ngStyle]="{backgroundImage: 'url('+imgPath+'/' + tweet.user.photo+')', backgroundColor: color }" [nzSize]="50" [nzText]="!tweet.user.photo ? tweet.user?.name : ''" style="vertical-align: middle;color: #888;background-size: cover;background-position: center;"></nz-avatar>
+        </a>
+    </nz-col>
+
+    <nz-col [nzFlex]="1" style="width: 400px;">
+
+        <span [routerLink]="['/tweet', tweet.id]" class="clickable">
+            <nz-row nzJustify="space-between">
+                <nz-col [nzFlex]="1">
+                    <a [routerLink]="['/', tweet.user?.username]">
+                        <h3 style="display: inline-block; margin-right: 8px;">{{tweet.user?.name}}</h3>
+                        <span nz-typography>@{{tweet.user?.username}}</span>
+                    </a>
+                    -
+                    <span nz-typography>{{tweet.createdAt | date: 'dd MMMM y HH:mm'}}</span>
+                </nz-col>
+                <nz-col *ngIf="tweet.user.id === auth.user().id">
+                    <button nz-dropdown [nzDropdownMenu]="menu" nzTrigger="click" nz-button nzType="text" (click)="$event.stopPropagation(); $event.preventDefault()">
+                        <i nz-icon nzType="down"></i>
+                    </button>
+                </nz-col>
+            </nz-row>
+            <nz-row>
+                <nz-col>
+                    <p class="margin-t-medium">
+                        {{tweet.content}}
+                    </p>
+                </nz-col>
+            </nz-row>
+        </span>
+        <nz-row nzJustify="center">
+            <nz-carousel nz-col *ngIf="tweet.media.length" nzEffect="scrollx" class="tweet-carousel margin-y-medium" (click)="$event.preventDefault(); $event.stopPropagation()">
+                <div nz-carousel-content *ngFor="let item of tweet.media" [style]="{backgroundImage: 'url('+(imgPath +'/tweets-media/'+ item.path) +')'}">
+                </div>
+            </nz-carousel>
+        </nz-row>
+        <nz-row nzJustify="space-around" class="buttons" *ngIf="footer">
+            <button nz-button nzType="text" (click)="reply()">
+                <i nz-icon nzType="comment"></i> {{tweet.repliesCount}}
+            </button>
+            <button nz-button nzType="text" (click)="retweet();">
+                <i nz-icon nzType="retweet"></i> {{tweet.retweetsCount}}
+            </button>
+            <button nz-button nzType="text" (click)="toggleLike();" [style]="{color: likedByCurrentUser? '#1890ff': undefined}">
+                <i nz-icon nzType="heart" [nzTheme]="likedByCurrentUser ? 'fill': 'outline'"></i>
+                {{tweet.likesCount}}
+            </button>
+        </nz-row>
+    </nz-col>
+
+</nz-row>
+
+<nz-row *ngIf="tweet.retweetParent.id">
+    <nz-col [nzSpan]="24">
+        <app-tweet [tweet]="tweet.retweetParent" style="border-radius: 5px; border: 1px solid #ddd" [footer]="false"></app-tweet>
+    </nz-col>
+</nz-row>
+
+<nz-row *ngIf="showReplyForm">
+    <nz-col [nzSpan]="24">
+        <app-tweet-form [showParent]="false" [replyParent]="tweet" (tweeted)="tweeted.emit($event)" placeholder="Tweet your reply"></app-tweet-form>
+    </nz-col>
+</nz-row>
+
+
+<nz-dropdown-menu #menu="nzDropdownMenu">
+    <ul nz-menu nzSelectable>
+        <li nz-menu-item nz-typography nzType="danger" (click)="remove()">
+            <i nz-icon nzType="delete"></i>Delete
+        </li>
+    </ul>
+</nz-dropdown-menu>
+
+
+<nz-row *ngFor="let reply of replies" class="margin-l-medium">
+    <nz-divider></nz-divider>
+    <app-tweet [tweet]="reply" (tweeted)="load()"></app-tweet>
+</nz-row>

@@ -1,0 +1,10 @@
+<div class="page-header">
+    <h2 class="page-title">Notifications</h2>
+</div>
+
+<app-spin *ngIf="loading"></app-spin>
+<ng-container *ngIf="!loading">
+    <app-notification *ngFor="let notification of notifications" [notification]="notification" (click)="redirect(notification)" class="clickable"></app-notification>
+</ng-container>
+
+<h3 *ngIf="!loading && !notifications.length" class="margin-t-large">There are no notifications yet!</h3>
