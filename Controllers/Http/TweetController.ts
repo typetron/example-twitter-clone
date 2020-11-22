@@ -52,11 +52,13 @@ export class TweetController {
         await tweet.media.save(...mediaFiles.map(media => new Media({path: media})))
 
         if (form.retweetParent) {
-            const retweetParent = await Tweet.find(form.retweetParent)
-            if (retweetParent.user.get()?.id !== this.user.id) {
+            const retweetUser = await User
+                .where('id', Tweet.where('id', form.retweetParent).select('userId'))
+                .first()
+            if (retweetUser?.id !== this.user.id) {
                 const notification = await Notification.firstOrCreate({
                     type: 'retweet',
-                    user: retweetParent.user.get(),
+                    user: retweetUser,
                     readAt: undefined,
                     tweet
                 })

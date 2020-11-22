@@ -47,7 +47,7 @@ export class ProfileComponent implements OnInit {
             },
             nzOnOk: async (modal) => {
                 const user = await this.userService.edit(modal.form.value)
-                this.authService.setUser(user)
+                this.authService.setUser(this.user = user)
             }
         })
     }

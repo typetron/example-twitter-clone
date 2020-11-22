@@ -11,6 +11,7 @@ import { AuthService } from '../../../auth.service'
 })
 export class FollowersComponent implements OnInit {
     followers: User[] = []
+    user: User
 
     constructor(
         private route: ActivatedRoute,
@@ -19,7 +20,13 @@ export class FollowersComponent implements OnInit {
     ) { }
 
     async ngOnInit(): Promise<void> {
-        this.followers = await this.userService.followers(this.route.snapshot.params.username)
+        [
+            this.user,
+            this.followers
+        ] = await Promise.all([
+            this.userService.getUser(this.route.snapshot.params.username),
+            this.userService.followers(this.route.snapshot.params.username)
+        ])
     }
 
 }

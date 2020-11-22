@@ -14,7 +14,10 @@ export class NotificationController {
 
     @Get()
     async get() {
-        const notifications = await Notification.with('notifiers', 'tweet').where('userId', this.user.id).orderBy('createdAt').get()
+        const notifications = await Notification
+            .with('notifiers', 'tweet')
+            .where('userId', this.user.id)
+            .orderBy('createdAt').get()
         return NotificationModel.fromMany(notifications)
     }
 

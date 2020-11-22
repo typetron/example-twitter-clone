@@ -5,7 +5,7 @@ import { User } from 'App/Entities/User'
 import { AuthMiddleware } from '@Typetron/Framework/Middleware'
 import { UserForm } from 'App/Forms/UserForm'
 import { User as UserModel } from 'App/Models/User'
-import { Image, Storage } from '@Typetron/Storage'
+import { File, Storage } from '@Typetron/Storage'
 import { TopicsForm } from 'App/Forms/TopicsForm'
 import { Notification } from '../../Entities/Notification'
 
@@ -39,11 +39,11 @@ export class UserController {
 
     @Patch()
     async update(form: UserForm) {
-        if (form.photo instanceof Image) {
+        if (form.photo instanceof File) {
             await this.storage.delete(`public/${this.user.photo}`)
             form.photo = await this.storage.put(form.photo, 'public')
         }
-        if (form.cover instanceof Image) {
+        if (form.cover instanceof File) {
             await this.storage.delete(`public/${this.user.cover}`)
             form.cover = await this.storage.put(form.cover, 'public')
         }

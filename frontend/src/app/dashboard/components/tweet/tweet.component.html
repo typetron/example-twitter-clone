@@ -53,7 +53,7 @@
 
 </nz-row>
 
-<nz-row *ngIf="tweet.retweetParent.id">
+<nz-row *ngIf="tweet.retweetParent?.id">
     <nz-col [nzSpan]="24">
         <app-tweet [tweet]="tweet.retweetParent" style="border-radius: 5px; border: 1px solid #ddd" [footer]="false"></app-tweet>
     </nz-col>

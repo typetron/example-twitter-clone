@@ -57,7 +57,12 @@ export class TweetComponent implements OnInit, OnChanges {
             nzTitle: 'Retweet',
             nzContent: TweetFormComponent,
             nzComponentParams: {
-                retweetParent: this.tweet
+                retweetParent: {
+                    ...this.tweet,
+                    replyParent: undefined,
+                    retweetParent: undefined,
+                },
+                placeholder: 'Retweet comment'
             },
             nzFooter: null
         })
@@ -72,7 +77,12 @@ export class TweetComponent implements OnInit, OnChanges {
             nzTitle: 'Reply',
             nzContent: TweetFormComponent,
             nzComponentParams: {
-                replyParent: this.tweet,
+                replyParent: {
+                    ...this.tweet,
+                    replyParent: undefined,
+                    retweetParent: undefined,
+                },
+                placeholder: 'Write your reply'
             },
             nzFooter: null,
         })
