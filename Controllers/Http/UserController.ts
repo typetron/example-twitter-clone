@@ -7,7 +7,8 @@ import { UserForm } from 'App/Forms/UserForm'
 import { User as UserModel } from 'App/Models/User'
 import { File, Storage } from '@Typetron/Storage'
 import { TopicsForm } from 'App/Forms/TopicsForm'
-import { Notification } from '../../Entities/Notification'
+import { Notification } from 'App/Entities/Notification'
+import { Query } from '@Typetron/Database'
 
 @Controller('user')
 @Middleware(AuthMiddleware)
@@ -21,20 +22,34 @@ export class UserController {
 
     @Get(':username/followers')
     async followers(username: string) {
-        const user = await User.with('followers').where('username', username).first()
+        const user = await User.where('username', username).first()
+
         if (!user) {
             throw new Error('User not found')
         }
-        return UserModel.fromMany(user.followers)
+
+        const users = await User
+            .whereIn('id', Query.table('followers').select('followerId').where('followingId', user.id))
+            .with(['followers', query => query.where('followerId', this.user.id)])
+            .get()
+
+        return UserModel.fromMany(users)
     }
 
     @Get(':username/following')
     async following(username: string) {
-        const user = await User.with('following').where('username', username).first()
+        const user = await User.where('username', username).first()
+
         if (!user) {
             throw new Error('User not found')
         }
-        return UserModel.fromMany(user.following)
+
+        const users = await User
+            .whereIn('id', Query.table('followers').select('followingId').where('followerId', user.id))
+            .with(['followers', query => query.where('followerId', this.user.id)])
+            .get()
+
+        return UserModel.fromMany(users)
     }
 
     @Patch()
@@ -86,7 +101,11 @@ export class UserController {
 
     @Get(':username')
     async get(username: string) {
-        const user = await User.withCount('followers', 'following').where('username', username).first()
+        const user = await User
+            .withCount('followers', 'following')
+            .with(['followers', query => query.where('followerId', this.user.id)])
+            .where('username', username)
+            .first()
         if (!user) {
             throw new Error('User not found')
         }

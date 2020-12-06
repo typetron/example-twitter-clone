@@ -20,12 +20,12 @@
                         </a>
                     </li>
                     <li nz-menu-item nzMatchRouter>
-                        <nz-badge [nzCount]="userService.unreadNotifications$ | async" [nzOffset]="[10, 0]">
-                            <a routerLink="notifications">
+                        <a routerLink="notifications">
+                            <nz-badge [nzCount]="userService.unreadNotifications$ | async" [nzOffset]="[10, 0]">
                                 <i nz-icon nzTheme="outline" nzType="notification"></i>
                                 <span>Notifications</span>
-                            </a>
-                        </nz-badge>
+                            </nz-badge>
+                        </a>
                     </li>
                     <li nz-menu-item nzMatchRouter>
                         <a [routerLink]="[(authService.user$|async)?.username]">
@@ -40,8 +40,10 @@
                     <!--                        </a>-->
                     <!--                    </li>-->
                     <li (click)="logout()" nz-menu-item nzMatchRouter>
-                        <i nz-icon nzTheme="outline" nzType="logout"></i>
-                        <span>Logout</span>
+                        <a>
+                            <i nz-icon nzTheme="outline" nzType="logout"></i>
+                            <span>Logout</span>
+                        </a>
                     </li>
                 </ul>
             </nz-sider>

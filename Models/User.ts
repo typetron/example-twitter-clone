@@ -21,17 +21,17 @@ export class User extends Model {
     bio?: string
 
     @Field()
-    followersCount = 0
+    followersCount?: number
 
     @Field()
-    followingCount = 0
+    followingCount?: number
 
     @FieldMany(User)
-    followers: User[] = []
+    followers?: User[]
 
     @FieldMany(User)
-    following: User[] = []
+    following?: User[]
 
     @FieldMany(Topic)
-    topics: Topic[] = []
+    topics?: Topic[]
 }

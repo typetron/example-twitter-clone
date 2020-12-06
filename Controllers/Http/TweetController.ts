@@ -93,7 +93,7 @@ export class TweetController {
         }
 
         await tweet.loadCount('likes', 'replies', 'retweets')
-        await tweet.load('media', 'likes', 'user')
+        await tweet.load('media', 'likes', 'user', 'retweetParent.user')
 
         return TweetModel.from(tweet)
     }

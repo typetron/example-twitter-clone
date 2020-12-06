@@ -21,7 +21,7 @@
         </nz-col>
     </nz-row>
 
-    <nz-row *ngIf="showParent && retweetParent" class="margin-b-medium">
+    <nz-row *ngIf="showParent && retweetParent && retweetParent.user" class="margin-b-medium">
         <app-tweet [tweet]="retweetParent" [footer]="false" style="border-radius: 5px; border: 1px solid #ddd"></app-tweet>
     </nz-row>
     <nz-row nzJustify="space-between">

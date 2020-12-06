@@ -1,5 +1,18 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http'
-import { environment } from '../environments/environment'
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http'
+import { environment } from '../../environments/environment'
+
+interface HttpOptions {
+    headers?: HttpHeaders | {
+        [header: string]: string | string[];
+    }
+    observe?: 'body'
+    params?: HttpParams | {
+        [param: string]: string | string[];
+    }
+    reportProgress?: boolean
+    responseType?: 'json'
+    withCredentials?: boolean
+}
 
 export class ApiService {
 
@@ -11,15 +24,17 @@ export class ApiService {
         return localStorage.getItem('token') || undefined
     }
 
-    get<T>(path: string, headers: object = {}): Promise<T> {
+    get<T>(path: string, options: HttpOptions = {}): Promise<T> {
         return this.http.get<T>(this.getEndpoint(path), {
-            headers: this.getHeaders(headers)
+            params: options.params,
+            headers: this.getHeaders(options.headers)
         }).toPromise()
     }
 
-    post<T>(path: string, data?: object, headers?: object): Promise<T> {
+    post<T>(path: string, data?: object, options?: HttpOptions): Promise<T> {
         return this.http.post<T>(this.getEndpoint(path), data, {
-            headers: this.getHeaders(headers || {})
+            params: options?.params,
+            headers: this.getHeaders(options?.headers || {})
         }).toPromise()
     }
 

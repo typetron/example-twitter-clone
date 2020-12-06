@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core'
 import { HttpClient } from '@angular/common/http'
 import { User } from '@Data/Models/User'
-import { ApiService } from '../api.service'
 import { toFormData } from '../util'
 import { Topic } from '@Data/Models/Topic'
 import { TopicsForm } from '../../../../Forms/TopicsForm'
 import { BehaviorSubject } from 'rxjs'
+import { ApiService } from '../services/api.service'
 
 @Injectable({
     providedIn: 'root'

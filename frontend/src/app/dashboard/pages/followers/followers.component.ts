@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core'
 import { ActivatedRoute } from '@angular/router'
 import { UserService } from '../../user.service'
 import { User } from '@Data/Models/User'
-import { AuthService } from '../../../auth.service'
+import { AuthService } from '../../../services/auth.service'
 
 @Component({
     selector: 'app-followers',
@@ -11,7 +11,7 @@ import { AuthService } from '../../../auth.service'
 })
 export class FollowersComponent implements OnInit {
     followers: User[] = []
-    user: User
+    user?: User
 
     constructor(
         private route: ActivatedRoute,

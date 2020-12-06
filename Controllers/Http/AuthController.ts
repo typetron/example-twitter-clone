@@ -5,6 +5,8 @@ import { User as UserModel } from 'App/Models/User'
 import { LoginForm } from 'App/Forms/LoginForm'
 import { Inject } from '@Typetron/Container'
 import { Auth } from '@Typetron/Framework/Auth'
+import { AuthConfig } from '@Typetron/Framework'
+import { Crypt } from '@Typetron/Encryption'
 
 @Controller()
 export class AuthController {
@@ -12,18 +14,26 @@ export class AuthController {
     @Inject()
     auth: Auth
 
+    @Inject()
+    authConfig: AuthConfig
+
     @Post('register')
     async register(form: RegisterForm) {
-        const user = await User.where('email', form.email).first()
+        let user = await User.where('email', form.email).orWhere('username', form.username).first()
         if (user) {
-            throw new Error('User already exists');
+            throw new Error('User already exists')
         }
 
         if (form.password !== form.passwordConfirmation) {
-            throw new Error('Passwords don\'t match');
+            throw new Error('Passwords don\'t match')
         }
 
-        return UserModel.from(await this.auth.register(form.email, form.password));
+        user = await User.create({
+            username: form.username,
+            email: form.email,
+            password: await Crypt.hash(form.password, this.authConfig.saltRounds),
+        })
+        return UserModel.from(user)
     }
 
     @Post('login')

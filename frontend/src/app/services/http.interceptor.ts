@@ -1,4 +1,10 @@
-import { HttpErrorResponse, HttpEvent, HttpHandler, HttpInterceptor as BaseHttpInterceptor, HttpRequest } from '@angular/common/http'
+import {
+    HttpErrorResponse,
+    HttpEvent,
+    HttpHandler,
+    HttpInterceptor as BaseHttpInterceptor,
+    HttpRequest
+} from '@angular/common/http'
 import { Injectable } from '@angular/core'
 import { catchError } from 'rxjs/operators'
 import { Observable, throwError } from 'rxjs'

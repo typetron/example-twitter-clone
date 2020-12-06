@@ -1,10 +1,11 @@
 <div class="page-header">
     <h2 class="page-title">Home</h2>
-    <app-tweet-form (tweeted)="tweeted($event)"></app-tweet-form>
+    <app-tweet-form (tweeted)="update$.next()"></app-tweet-form>
 </div>
 
 <div class="padding-b-large">
-    <app-tweet *ngFor="let tweet of tweets" [tweet]="tweet" (tweeted)="load()" (delete)="deleteTweet()"></app-tweet>
+    <app-tweets [update$]="update$"></app-tweets>
+    <!--    <app-tweet *ngFor="let tweet of tweets" [tweet]="tweet" (tweeted)="load()" (delete)="deleteTweet()"></app-tweet>-->
 </div>
-<app-spin *ngIf="loading"></app-spin>
+<!--<app-spin *ngIf="loading"></app-spin>-->
 

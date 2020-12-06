@@ -58,6 +58,4 @@ export class User extends Authenticable {
 
     @CreatedAt()
     createdAt: Date
-
-    getUsername = () => 'username'
 }

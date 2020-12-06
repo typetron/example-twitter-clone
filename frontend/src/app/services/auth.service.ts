@@ -41,6 +41,10 @@ export class AuthService extends ApiService {
         localStorage.setItem('token', response.token)
     }
 
+    register(form: object): Promise<User> {
+        return this.http.post<User>(this.getEndpoint('register'), form).toPromise()
+    }
+
     logout(): void {
         localStorage.removeItem('user')
     }

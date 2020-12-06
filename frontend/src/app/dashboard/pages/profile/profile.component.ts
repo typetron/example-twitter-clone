@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core'
 import { EditFormComponent } from './edit-form/edit-form.component'
 import { NzModalService } from 'ng-zorro-antd/modal'
-import { AuthService } from '../../../auth.service'
 import { UserService } from '../../user.service'
 import { environment } from '../../../../environments/environment'
 import { ActivatedRoute } from '@angular/router'
 import { User } from '@Data/Models/User'
 import { TopicsFormComponent } from './topics-form/topics-form.component'
+import { AuthService } from '../../../services/auth.service'
 
 @Component({
     selector: 'app-profile',

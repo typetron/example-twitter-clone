@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core'
 import { FormBuilder, Validators } from '@angular/forms'
-import { AuthService } from '../../../auth.service'
 import { Router } from '@angular/router'
+import { AuthService } from '../../services/auth.service'
 
 @Component({
     selector: 'app-login',
@@ -30,6 +30,8 @@ export class LoginComponent implements OnInit {
         this.loading = true
         const form = this.form.value
         await this.authService.login(form.username, form.password).finally(() => this.loading = false)
+        this.loading = true
         await this.router.navigate(['/home'])
+        this.loading = false
     }
 }

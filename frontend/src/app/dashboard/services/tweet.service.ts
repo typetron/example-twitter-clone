@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core'
-import { ApiService } from '../../api.service'
 import { HttpClient } from '@angular/common/http'
 import { Tweet } from '@Data/Models/Tweet'
 import { toFormData } from '../../util'
+import { ApiService } from '../../services/api.service'
 
 @Injectable({
     providedIn: 'root'
@@ -17,8 +17,14 @@ export class TweetService extends ApiService {
         return this.get(`tweet/${id}`)
     }
 
-    getTweets(page = 1): Promise<Tweet[]> {
-        return this.get(`?page=${page}`)
+    getTweets(page = 1, username?: string): Promise<Tweet[]> {
+        const params: Record<string, string> = {
+            page: page.toString(),
+        }
+        if (username) {
+            params.username = username
+        }
+        return this.get(``, {params})
     }
 
     tweet(form: object): Promise<Tweet> {

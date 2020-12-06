@@ -1,5 +1,5 @@
 <div class="page-header margin-b-large">
-    <h3>Following <span nz-typography nzType="secondary">{{auth.user().name}} @{{auth.user().username}}</span></h3>
+    <h3>Following <span *ngIf="user" nz-typography nzType="secondary">{{user.name}} @{{user.username}}</span></h3>
 </div>
 
 <app-follower *ngFor="let user of following" [user]="user" [authUser]="auth.user()"></app-follower>

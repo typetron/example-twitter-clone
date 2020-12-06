@@ -13,7 +13,6 @@ export class FollowerComponent implements OnInit {
 
     @Input() user!: User
     @Input() authUser?: User
-    @Input() following = true
 
     constructor() { }
 

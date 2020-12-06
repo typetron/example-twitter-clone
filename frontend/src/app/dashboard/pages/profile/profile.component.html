@@ -12,22 +12,32 @@
             <nz-col>
                 <nz-row [nzGutter]="8">
                     <nz-col>
-                        <button (click)="follow(user)" nz-button nzType="primary" *ngIf="(authService.user$ | async).id !== user.id">
+                        <button
+                            (click)="follow(user)"
+                            *ngIf="authService.user().id !== user.id && !user.followers.findWhere('id', authService.user().id)"
+                            nz-button
+                            nzType="primary"
+                        >
                             Follow
                         </button>
                     </nz-col>
                     <nz-col>
-                        <button (click)="unfollow(user)" nz-button nzType="primary" *ngIf="(authService.user$ | async).id !== user.id">
+                        <button
+                            (click)="unfollow(user)"
+                            *ngIf="authService.user().id !== user.id && user.followers.findWhere('id', authService.user().id)"
+                            nz-button
+                            nzType="danger"
+                        >
                             Unfollow
                         </button>
                     </nz-col>
-                    <nz-col>
+                    <nz-col *ngIf="authService.user().id === user.id">
                         <button (click)="showTopicsModal(user)" nz-button nzType="primary">
                             <i nz-icon nzType="menu"></i>
                             Topics
                         </button>
                     </nz-col>
-                    <nz-col>
+                    <nz-col *ngIf="authService.user().id === user.id">
                         <button (click)="showEditModal()" nz-button nzType="primary">
                             <i nz-icon nzType="edit"></i>
                             Edit profile
@@ -41,10 +51,10 @@
         <p class="padding-x-large">{{user.bio}}</p>
         <nz-row class="padding-x-large" nzGutter="16">
             <nz-col>
-                <a [routerLink]="['following']"><b>{{user.followingCount}}</b> Following</a>
+                <a [routerLink]="['following']"><b>{{user.followingCount || 0}}</b> Following</a>
             </nz-col>
             <nz-col>
-                <a [routerLink]="['followers']"><b>{{user.followersCount}}</b> Followers</a>
+                <a [routerLink]="['followers']"><b>{{user.followersCount || 0}}</b> Followers</a>
             </nz-col>
         </nz-row>
     </div>
@@ -53,23 +63,23 @@
         <nz-tab>
             <a [routerLink]="['.']" *nzTabLink nz-tab-link>Tweets</a>
             <ng-template nz-tab>
-                <app-tweets></app-tweets>
+                <app-tweets [username]="user.username"></app-tweets>
             </ng-template>
         </nz-tab>
-        <nz-tab>
-            <a [queryParams]="{ tab: 'with-replies' }" [routerLink]="['.']" *nzTabLink nz-tab-link queryParamsHandling="merge">
-                Tweets replies
-            </a>
-            <ng-template nz-tab>
-                <app-tweets-and-replies></app-tweets-and-replies>
-            </ng-template>
-        </nz-tab>
-        <nz-tab>
-            <a [queryParams]="{ tab: 'likes' }" [routerLink]="['.']" *nzTabLink nz-tab-link queryParamsHandling="merge">Likes</a>
-            <ng-template nz-tab>
-                <app-likes></app-likes>
-            </ng-template>
-        </nz-tab>
+        <!--        <nz-tab>-->
+        <!--            <a [queryParams]="{ tab: 'with-replies' }" [routerLink]="['.']" *nzTabLink nz-tab-link queryParamsHandling="merge">-->
+        <!--                Tweets replies-->
+        <!--            </a>-->
+        <!--            <ng-template nz-tab>-->
+        <!--                <app-tweets-and-replies></app-tweets-and-replies>-->
+        <!--            </ng-template>-->
+        <!--        </nz-tab>-->
+        <!--        <nz-tab>-->
+        <!--            <a [queryParams]="{ tab: 'likes' }" [routerLink]="['.']" *nzTabLink nz-tab-link queryParamsHandling="merge">Likes</a>-->
+        <!--            <ng-template nz-tab>-->
+        <!--                <app-likes></app-likes>-->
+        <!--            </ng-template>-->
+        <!--        </nz-tab>-->
     </nz-tabset>
 
 </ng-container>

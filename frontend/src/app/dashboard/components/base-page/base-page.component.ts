@@ -1,11 +1,11 @@
 import { Component, OnDestroy, OnInit } from '@angular/core'
-import { AuthService } from '../../../auth.service'
 import { Router } from '@angular/router'
-import { AppService } from '../../../app.service'
 import { UserService } from '../../user.service'
 import { interval, Subject } from 'rxjs'
 import { startWith, takeUntil } from 'rxjs/operators'
 import { Topic } from '../../../../../../Models/Topic'
+import { AppService } from '../../../services/app.service'
+import { AuthService } from '../../../services/auth.service'
 
 @Component({
     selector: 'app-base-page',

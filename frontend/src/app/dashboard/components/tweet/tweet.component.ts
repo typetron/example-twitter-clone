@@ -3,9 +3,9 @@ import { Tweet } from '@Data/Models/Tweet'
 import { TweetService } from '../../services/tweet.service'
 import { NzMessageService } from 'ng-zorro-antd/message'
 import { environment } from '../../../../environments/environment'
-import { AuthService } from '../../../auth.service'
 import { NzModalService } from 'ng-zorro-antd/modal'
 import { TweetFormComponent } from '../tweet-form/tweet-form.component'
+import { AuthService } from '../../../services/auth.service'
 
 @Component({
     selector: 'app-tweet',

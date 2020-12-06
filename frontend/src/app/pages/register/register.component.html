@@ -1,0 +1,34 @@
+<form (ngSubmit)="register()" [formGroup]="form" autocomplete="off" class="form" nz-form>
+    <nz-form-item>
+        <nz-form-control nzErrorTip="Please input your username!">
+            <nz-input-group nzPrefixIcon="user">
+                <input formControlName="username" nz-input placeholder="Username" type="text"/>
+            </nz-input-group>
+        </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+        <nz-form-control nzErrorTip="Please input your email!">
+            <nz-input-group nzPrefixIcon="user">
+                <input formControlName="email" nz-input placeholder="Email" type="text"/>
+            </nz-input-group>
+        </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+        <nz-form-control nzErrorTip="Please input your password!">
+            <nz-input-group nzPrefixIcon="lock">
+                <input formControlName="password" nz-input placeholder="Password" type="password"/>
+            </nz-input-group>
+        </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+        <nz-form-control nzErrorTip="Please repeat your password!">
+            <nz-input-group nzPrefixIcon="lock">
+                <input formControlName="passwordConfirmation" nz-input placeholder="Repeat password" type="password"/>
+            </nz-input-group>
+        </nz-form-control>
+    </nz-form-item>
+    <button [nzLoading]="loading" [nzType]="'primary'" class="form-button form-margin" nz-button>
+        Register
+    </button>
+    Already have and account? <a routerLink="/login"> Login here! </a>
+</form>

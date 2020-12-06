@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core'
 import { User } from '../../../../../../Models/User'
 import { ActivatedRoute } from '@angular/router'
 import { UserService } from '../../user.service'
-import { AuthService } from '../../../auth.service'
+import { AuthService } from '../../../services/auth.service'
 
 @Component({
     selector: 'app-followings',
@@ -11,6 +11,7 @@ import { AuthService } from '../../../auth.service'
 })
 export class FollowingsComponent implements OnInit {
     following: User[] = []
+    user?: User
 
     constructor(
         private route: ActivatedRoute,
@@ -19,6 +20,12 @@ export class FollowingsComponent implements OnInit {
     ) { }
 
     async ngOnInit(): Promise<void> {
-        this.following = await this.userService.following(this.route.snapshot.params.username)
+        [
+            this.user,
+            this.following
+        ] = await Promise.all([
+            this.userService.getUser(this.route.snapshot.params.username),
+            this.userService.following(this.route.snapshot.params.username)
+        ])
     }
 }
