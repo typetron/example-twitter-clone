@@ -9,7 +9,7 @@ import { Tweet as TweetModel } from '@Data/Models/Tweet'
 import { Inject } from '@Typetron/Container'
 import { Storage } from '@Typetron/Storage'
 import { Media } from 'App/Entities/Media'
-import { Http, HttpError } from '@Typetron/Http'
+import { Http, HttpError } from '@Typetron/Web'
 import { Notification } from 'App/Entities/Notification'
 
 @Controller('tweet')

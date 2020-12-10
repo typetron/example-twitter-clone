@@ -1,7 +1,16 @@
-import { Column, CreatedAt, Entity, Options, PrimaryColumn, Relation, UpdatedAt } from '@Typetron/Database'
+import {
+    BelongsTo,
+    Column,
+    CreatedAt,
+    Entity,
+    HasMany,
+    Options,
+    PrimaryColumn,
+    Relation,
+    UpdatedAt
+} from '@Typetron/Database'
 import { User } from './User'
 import { Like } from './Like'
-import { BelongsTo, HasMany } from '@Typetron/Database/Fields'
 import { Media } from './Media'
 import { Notification } from 'App/Entities/Notification'
 

@@ -16,20 +16,20 @@
 	"dependencies": {
 		"@typetron/framework": "0.0.14",
 		"reflect-metadata": "^0.1.13",
-		"ts-node": "^8.10.1",
+		"ts-node": "^9.1.0",
 		"tsconfig-paths": "^3.9.0",
-		"typescript": "3.8.3"
+		"typescript": "4.1.2"
 	},
 	"devDependencies": {
-		"@testdeck/mocha": "^0.1.0",
-		"@types/chai": "^4.2.11",
-		"@types/mocha": "^7.0.2",
-		"@types/node": "^14.0.1",
+		"@testdeck/mocha": "^0.1.2",
+		"@types/chai": "^4.2.14",
+		"@types/mocha": "^8.0.4",
+		"@types/node": "^14.14.10",
 		"chai": "^4.2.0",
-		"mocha": "^7.1.2",
-		"nyc": "^15.0.1",
+		"mocha": "^8.2.1",
+		"nyc": "^15.1.0",
 		"source-map-support": "^0.5.19",
-		"ts-node-dev": "^1.0.0-pre.44",
-		"tslint": "^6.1.2"
+		"ts-node-dev": "^1.0.0",
+		"tslint": "^6.1.3"
 	}
 }

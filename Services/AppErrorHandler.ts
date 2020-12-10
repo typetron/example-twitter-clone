@@ -1,4 +1,4 @@
-import { ErrorHandler, Request } from '@Typetron/Http';
+import { ErrorHandler, Request } from '@Typetron/Web'
 
 export class AppErrorHandler extends ErrorHandler {
 
