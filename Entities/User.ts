@@ -1,4 +1,4 @@
-import { BelongsToManyOptions, Column, CreatedAt, Options, Relation } from '@Typetron/Database'
+import { BelongsToManyOptions, Column, Options, Relation } from '@Typetron/Database'
 import { User as Authenticable } from '@Typetron/Framework/Auth'
 import { Tweet } from 'App/Entities/Tweet'
 import { Like } from 'App/Entities/Like'
@@ -55,7 +55,4 @@ export class User extends Authenticable {
         foreignColumn: 'followerId'
     })
     following: BelongsToMany<User>
-
-    @CreatedAt()
-    createdAt: Date
 }
