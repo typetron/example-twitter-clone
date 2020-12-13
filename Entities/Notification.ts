@@ -20,7 +20,7 @@ export class Notification extends Entity {
     id: number
 
     @Column()
-    type: 'follow' | 'like' | 'retweet'
+    type: 'follow' | 'like' | 'reply' | 'retweet'
 
     @Relation(() => User, 'notifications')
     user: BelongsTo<User>
@@ -29,7 +29,7 @@ export class Notification extends Entity {
     notifiers: BelongsToMany<User>
 
     @Relation(() => Tweet, 'notifications')
-    tweet?: BelongsTo<Tweet>
+    tweet: BelongsTo<Tweet>
 
     @Column()
     readAt: Date

@@ -51,19 +51,41 @@ export class TweetController {
 
         await tweet.media.save(...mediaFiles.map(media => new Media({path: media})))
 
+        /**
+         * When the retweetParent property is sent, it means the user retweeted this tweet.
+         * In this case, we need to create a 'retweet' notification if the user that
+         * retweeted the tweet is not its author.
+         */
         if (form.retweetParent) {
-            const retweetUser = await User
-                .where('id', Tweet.where('id', form.retweetParent).select('userId'))
-                .first()
-            if (retweetUser?.id !== this.user.id) {
+            const retweetParent = await Tweet.find(form.retweetParent)
+            const retweetUser = retweetParent?.user.get()
+            if (retweetUser && retweetUser.id !== this.user.id) {
                 const notification = await Notification.firstOrCreate({
                     type: 'retweet',
-                    user: retweetUser,
+                    user: retweetUser.id,
                     readAt: undefined,
                     tweet
                 })
                 await notification.notifiers.attach(this.user.id)
-                await notification.save()
+            }
+        }
+
+        /**
+         * When the replyParent property is sent, it means the user replied to this tweet.
+         * In this case, we need to create a 'reply' notification if the user that
+         * retweeted the tweet is not its author.
+         */
+        if (form.replyParent) {
+            const replyParent = await Tweet.find(form.replyParent)
+            const replyUser = replyParent?.user.get()
+            if (replyUser && replyUser.id !== this.user.id) {
+                const notification = await Notification.firstOrCreate({
+                    type: 'reply',
+                    user: replyUser.id,
+                    readAt: undefined,
+                    tweet
+                })
+                await notification.notifiers.attach(this.user.id)
             }
         }
 
