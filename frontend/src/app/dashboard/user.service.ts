@@ -74,6 +74,6 @@ export class UserService extends ApiService {
         if (username) {
             params.username = username
         }
-        return this.get(`user/${username}/tweets`, {params})
+        return this.get(`${username}/tweets`, {params})
     }
 }

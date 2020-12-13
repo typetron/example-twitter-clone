@@ -34,6 +34,19 @@ export class HomeController {
         return TweetModel.fromMany(await tweets.get())
     }
 
+    @Get(':username/tweets')
+    async userTweets(username: string, @Query('page') page: number = 1, @Query('limit') limit: number = 10) {
+        const user = await User.where('username', username).first()
+
+        if (!user) {
+            throw new Error('User not found')
+        }
+
+        const tweets = this.getTweetsQuery(page, limit).where('userId', user.id)
+
+        return TweetModel.fromMany(await tweets.get())
+    }
+
     getTweetsQuery(page: number, limit: number) {
         return Tweet
             .with(
