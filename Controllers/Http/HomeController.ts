@@ -15,7 +15,7 @@ export class HomeController {
 
     @Get()
     @Middleware(AuthMiddleware)
-    async home(@Query('page') page: number = 1, @Query('username') username?: string) {
+    async tweets(@Query('page') page: number = 1, @Query('username') username?: string) {
         const tweets: EntityQuery<Tweet> = Tweet
             .with('media', 'retweetParent.user', 'user', ['likes', query => query.where('userId', this.user.id)])
             .withCount('likes', 'replies', 'retweets')
