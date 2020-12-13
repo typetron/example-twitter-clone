@@ -18,10 +18,11 @@ export class TweetService extends ApiService {
     }
 
     getTweets(page = 1): Promise<Tweet[]> {
-        const params: Record<string, string> = {
-            page: page.toString(),
-        }
-        return this.get(``, {params})
+        return this.get(``, {
+            params: {
+                page: page.toString(),
+            }
+        })
     }
 
     tweet(form: object): Promise<Tweet> {

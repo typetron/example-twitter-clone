@@ -59,6 +59,14 @@ export class UserService extends ApiService {
         this.unreadNotifications$.next(await this.get('notification/unread'))
     }
 
+    explore(page = 1): Promise<Tweet[]> {
+        return this.get(`explore`, {
+            params: {
+                page: page.toString(),
+            }
+        })
+    }
+
     getTweets(page = 1, username: string): Promise<Tweet[]> {
         const params: Record<string, string> = {
             page: page.toString(),
@@ -66,6 +74,6 @@ export class UserService extends ApiService {
         if (username) {
             params.username = username
         }
-        return this.get(``, {params})
+        return this.get(`user/${username}/tweets`, {params})
     }
 }

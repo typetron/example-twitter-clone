@@ -17,6 +17,9 @@ export class TweetsComponent implements OnInit {
     username?: string
 
     @Input()
+    explore = false
+
+    @Input()
     update$ = new Subject()
 
     tweets: Tweet[] = []
@@ -60,10 +63,14 @@ export class TweetsComponent implements OnInit {
         }
         this.loading = true
         let tweets: Tweet[]
-        if (this.username) {
-            tweets = await this.userService.getTweets(this.page, this.username).finally(() => this.loading = false)
+        if (this.explore) {
+            tweets = await this.userService.explore(this.page).finally(() => this.loading = false)
         } else {
-            tweets = await this.tweetService.getTweets(this.page).finally(() => this.loading = false)
+            if (this.username) {
+                tweets = await this.userService.getTweets(this.page, this.username).finally(() => this.loading = false)
+            } else {
+                tweets = await this.tweetService.getTweets(this.page).finally(() => this.loading = false)
+            }
         }
         this.noMoreTweets = !Boolean(tweets.length)
         this.tweets.push(...tweets)
