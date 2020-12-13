@@ -4,7 +4,6 @@ import {
     Column,
     CreatedAt,
     Entity,
-    Enum,
     Options,
     PrimaryColumn,
     Relation,
@@ -21,7 +20,6 @@ export class Notification extends Entity {
     id: number
 
     @Column()
-    @Enum('follow', 'like', 'retweet')
     type: 'follow' | 'like' | 'retweet'
 
     @Relation(() => User, 'notifications')
