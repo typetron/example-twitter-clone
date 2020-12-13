@@ -19,9 +19,9 @@ export class HomeController {
         const tweets: EntityQuery<Tweet> = Tweet
             .with(
                 'user',
+                'media',
                 'replyParent.user',
                 'retweetParent.user',
-                'media',
                 ['likes', query => query.where('userId', this.user.id)]
             )
             .whereIn('userId', followings.pluck('id').concat(this.user.id))
