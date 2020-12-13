@@ -16,19 +16,22 @@ export class HomeController {
     @Get()
     async tweets(@Query('page') page: number = 1, @Query('username') username?: string) {
         const tweets: EntityQuery<Tweet> = Tweet
-            .with('media', 'retweetParent.user', 'user', ['likes', query => query.where('userId', this.user.id)])
+            .with(
+                'user',
+                'replyParent.user',
+                'retweetParent.user',
+                'media',
+                ['likes', query => query.where('userId', this.user.id)]
+            )
             .withCount('likes', 'replies', 'retweets')
+            .orderBy('createdAt', 'DESC')
+            .limit((page - 1) * 10, 10)
 
         let user: User | undefined
 
         if (username && (user = await User.where('username', username).first())) {
             tweets.where('userId', user.id)
         }
-
-        tweets
-            .whereNull('replyParentId')
-            .orderBy('createdAt', 'DESC')
-            .limit((page - 1) * 10, 10)
 
         return TweetModel.fromMany(await tweets.get())
     }

@@ -1,10 +1,16 @@
+<nz-row *ngIf="tweet.replyParent?.id && tweet.replyParent?.user" class="margin-b-medium">
+    <nz-col [nzSpan]="24">
+        <app-tweet [footer]="false" [tweet]="tweet.replyParent" style="border-radius: 5px; border: 1px solid #ddd"></app-tweet>
+    </nz-col>
+</nz-row>
+
+
 <nz-row [nzGutter]="12" style="flex-wrap: nowrap;">
     <nz-col>
         <a [routerLink]="['/', tweet.user?.username]">
             <nz-avatar [ngStyle]="{backgroundImage: 'url('+imgPath+'/' + tweet.user.photo+')', backgroundColor: color }" [nzSize]="50" [nzText]="!tweet.user.photo ? tweet.user?.name : ''" style="vertical-align: middle;color: #888;background-size: cover;background-position: center;"></nz-avatar>
         </a>
     </nz-col>
-
     <nz-col [nzFlex]="1" style="width: 400px;">
 
         <span [routerLink]="['/tweet', tweet.id]" class="clickable">
