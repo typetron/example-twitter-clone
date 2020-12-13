@@ -6,6 +6,7 @@ import { Topic } from '@Data/Models/Topic'
 import { TopicsForm } from '../../../../Forms/TopicsForm'
 import { BehaviorSubject } from 'rxjs'
 import { ApiService } from '../services/api.service'
+import { Tweet } from '../../../../Models/Tweet'
 
 @Injectable({
     providedIn: 'root'
@@ -56,5 +57,15 @@ export class UserService extends ApiService {
 
     async getUnreadNotifications(): Promise<void> {
         this.unreadNotifications$.next(await this.get('notification/unread'))
+    }
+
+    getTweets(page = 1, username: string): Promise<Tweet[]> {
+        const params: Record<string, string> = {
+            page: page.toString(),
+        }
+        if (username) {
+            params.username = username
+        }
+        return this.get(``, {params})
     }
 }

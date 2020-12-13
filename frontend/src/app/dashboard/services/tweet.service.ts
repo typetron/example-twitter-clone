@@ -17,12 +17,9 @@ export class TweetService extends ApiService {
         return this.get(`tweet/${id}`)
     }
 
-    getTweets(page = 1, username?: string): Promise<Tweet[]> {
+    getTweets(page = 1): Promise<Tweet[]> {
         const params: Record<string, string> = {
             page: page.toString(),
-        }
-        if (username) {
-            params.username = username
         }
         return this.get(``, {params})
     }

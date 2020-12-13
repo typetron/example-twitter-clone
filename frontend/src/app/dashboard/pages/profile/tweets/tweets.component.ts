@@ -4,6 +4,7 @@ import { Tweet } from '@Data/Models/Tweet'
 import { filter } from 'rxjs/operators'
 import { AppService } from '../../../../services/app.service'
 import { Subject } from 'rxjs'
+import { UserService } from '../../../user.service'
 
 @Component({
     selector: 'app-tweets',
@@ -25,6 +26,7 @@ export class TweetsComponent implements OnInit {
 
     constructor(
         private tweetService: TweetService,
+        private userService: UserService,
         private appService: AppService,
     ) { }
 
@@ -57,7 +59,12 @@ export class TweetsComponent implements OnInit {
             return
         }
         this.loading = true
-        const tweets = await this.tweetService.getTweets(this.page, this.username).finally(() => this.loading = false)
+        let tweets: Tweet[]
+        if (this.username) {
+            tweets = await this.userService.getTweets(this.page, this.username).finally(() => this.loading = false)
+        } else {
+            tweets = await this.tweetService.getTweets(this.page).finally(() => this.loading = false)
+        }
         this.noMoreTweets = !Boolean(tweets.length)
         this.tweets.push(...tweets)
     }

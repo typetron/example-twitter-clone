@@ -112,4 +112,17 @@ export class UserController {
         return UserModel.from(user)
     }
 
+    @Get(':username/tweets')
+    async tweets(username: string) {
+        const user = await User
+            .withCount('followers', 'following')
+            .with(['followers', query => query.where('followerId', this.user.id)])
+            .where('username', username)
+            .first()
+        if (!user) {
+            throw new Error('User not found')
+        }
+        return UserModel.from(user)
+    }
+
 }
