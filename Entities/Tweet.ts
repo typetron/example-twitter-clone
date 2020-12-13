@@ -1,8 +1,19 @@
-import { BelongsTo, Column, CreatedAt, Entity, HasMany, Options, PrimaryColumn, Relation } from '@Typetron/Database'
+import {
+    BelongsTo,
+    BelongsToMany,
+    Column,
+    CreatedAt,
+    Entity,
+    HasMany,
+    Options,
+    PrimaryColumn,
+    Relation
+} from '@Typetron/Database'
 import { User } from './User'
 import { Like } from './Like'
 import { Media } from './Media'
 import { Notification } from 'App/Entities/Notification'
+import { Hashtag } from 'App/Entities/Hashtag'
 
 @Options({
     table: 'tweets'
@@ -37,6 +48,9 @@ export class Tweet extends Entity {
 
     @Relation(() => Notification, 'tweet')
     notifications: HasMany<Notification>
+
+    @Relation(() => Hashtag, 'tweets')
+    hashtags: BelongsToMany<Hashtag>
 
     @CreatedAt()
     createdAt: Date

@@ -1,5 +1,6 @@
-import { BelongsTo, Column, Entity, Options, PrimaryColumn, Relation } from '@Typetron/Database'
+import { BelongsTo, BelongsToMany, Column, Entity, Options, PrimaryColumn, Relation } from '@Typetron/Database'
 import { Topic } from 'App/Entities/Topic'
+import { Tweet } from 'App/Entities/Tweet'
 
 @Options({
     table: 'hashtags'
@@ -13,4 +14,7 @@ export class Hashtag extends Entity {
 
     @Relation(() => Topic, 'hashtags')
     topic: BelongsTo<Topic>
+
+    @Relation(() => Tweet, 'hashtags')
+    tweets: BelongsToMany<Tweet>
 }

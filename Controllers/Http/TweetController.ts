@@ -8,9 +8,10 @@ import { Like } from 'App/Entities/Like'
 import { Tweet as TweetModel } from '@Data/Models/Tweet'
 import { Inject } from '@Typetron/Container'
 import { Storage } from '@Typetron/Storage'
-import { Media } from 'App/Entities/Media'
 import { Http, HttpError } from '@Typetron/Web'
 import { Notification } from 'App/Entities/Notification'
+import { Hashtag } from 'App/Entities/Hashtag'
+import { Media } from 'App/Entities/Media'
 
 @Controller('tweet')
 @Middleware(AuthMiddleware)
@@ -48,6 +49,8 @@ export class TweetController {
             form.media.map(file => this.storage.put(file, 'public/tweets-media'))
         )
         await tweet.media.save(...mediaFiles.map(media => new Media({path: media})))
+
+        await this.addHashTags(tweet)
 
         /**
          * When the replyParent property is sent, it means the user replied this tweet.
@@ -122,5 +125,13 @@ export class TweetController {
         }
         await tweet.delete()
         return TweetModel.from(tweet)
+    }
+
+    private async addHashTags(tweet: Tweet) {
+        const hashtagsList = tweet.content.matchAll(/\B#(\w\w+)\b/gm)
+        const hashtagsNames = Array.from(hashtagsList).map(hashtag => hashtag[1])
+        const hashtags = await Hashtag.whereIn('name', hashtagsNames).get()
+
+        await tweet.hashtags.sync(...hashtags.pluck('id'))
     }
 }
