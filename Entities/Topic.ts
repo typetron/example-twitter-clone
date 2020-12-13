@@ -1,8 +1,9 @@
-import { BelongsToMany, Column, Entity, Options, PrimaryColumn, Relation } from '@Typetron/Database'
+import { BelongsToMany, Column, Entity, HasMany, Options, PrimaryColumn, Relation } from '@Typetron/Database'
 import { User } from 'App/Entities/User'
+import { Hashtag } from 'App/Entities/Hashtag'
 
 @Options({
-    table: 'topic'
+    table: 'topics'
 })
 export class Topic extends Entity {
     @PrimaryColumn()
@@ -13,4 +14,7 @@ export class Topic extends Entity {
 
     @Relation(() => User, 'topics')
     enthusiasts: BelongsToMany<User> // `followers` can be used as well but it will be confused with user.followers
+
+    @Relation(() => Hashtag, 'topic')
+    hashtags: HasMany<Hashtag>
 }
