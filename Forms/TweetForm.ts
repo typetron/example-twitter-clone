@@ -11,9 +11,6 @@ export class TweetForm extends Form {
     content: string
 
     @Field()
-    parent?: number
-
-    @Field()
     media: File[] = []
 
     @Field()
