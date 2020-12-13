@@ -1,14 +1,4 @@
-import {
-    BelongsTo,
-    Column,
-    CreatedAt,
-    Entity,
-    HasMany,
-    Options,
-    PrimaryColumn,
-    Relation,
-    UpdatedAt
-} from '@Typetron/Database'
+import { BelongsTo, Column, CreatedAt, Entity, HasMany, Options, PrimaryColumn, Relation } from '@Typetron/Database'
 import { User } from './User'
 import { Like } from './Like'
 import { Media } from './Media'
@@ -50,7 +40,4 @@ export class Tweet extends Entity {
 
     @CreatedAt()
     createdAt: Date
-
-    @UpdatedAt()
-    updatedAt: Date
 }
