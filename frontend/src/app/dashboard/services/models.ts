@@ -53,9 +53,9 @@ export class RetweetNotification extends BaseNotificationTemplate implements Not
     }
 }
 
-export class CommentNotification extends BaseNotificationTemplate implements NotificationTemplate {
+export class ReplyNotification extends BaseNotificationTemplate implements NotificationTemplate {
     icon = 'comment'
-    titleSuffix = 'commented on your tweet'
+    titleSuffix = 'replied on your tweet'
 
     get url(): string {
         return `/tweet/${this.tweet.id}`

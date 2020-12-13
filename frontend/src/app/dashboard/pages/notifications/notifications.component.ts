@@ -1,7 +1,13 @@
 import { Component, OnDestroy, OnInit, Type } from '@angular/core'
 import { NotificationService } from '../../services/notification.service'
 import { Notification } from '../../../../../../Models/Notification'
-import { BaseNotificationTemplate, FollowNotification, LikeNotification, RetweetNotification } from '../../services/models'
+import {
+    BaseNotificationTemplate,
+    FollowNotification,
+    LikeNotification,
+    ReplyNotification,
+    RetweetNotification
+} from '../../services/models'
 import { UserService } from '../../user.service'
 import { Subject } from 'rxjs'
 import { filter, startWith, takeUntil } from 'rxjs/operators'
@@ -18,6 +24,7 @@ export class NotificationsComponent implements OnInit, OnDestroy {
 
     types: Record<Notification['type'], Type<BaseNotificationTemplate>> = {
         follow: FollowNotification,
+        reply: ReplyNotification,
         like: LikeNotification,
         retweet: RetweetNotification,
     }
