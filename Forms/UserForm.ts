@@ -4,7 +4,16 @@ import { Required } from '@Typetron/Validation'
 
 export class UserForm extends Form {
     @Field()
+    @Rules(
+        Required
+    )
     name?: string
+
+    @Field()
+    @Rules(
+        Required
+    )
+    username?: string
 
     @Field()
     @Rules(
