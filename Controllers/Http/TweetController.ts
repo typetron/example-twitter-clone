@@ -43,7 +43,6 @@ export class TweetController {
     async create(form: TweetForm) {
         const tweet = new Tweet(form)
         await this.user.tweets.save(tweet)
-        await tweet.load('user')
 
         const mediaFiles = await Promise.all(
             form.media.map(file => this.storage.put(file, 'public/tweets-media'))
@@ -64,7 +63,8 @@ export class TweetController {
             await this.addNotification(tweet, form.retweetParent, 'retweet')
         }
 
-        return tweet
+        await tweet.load('user')
+        return TweetModel.from(tweet)
     }
 
     private async addNotification(tweet: Tweet, parent: number, type: 'reply' | 'retweet') {
