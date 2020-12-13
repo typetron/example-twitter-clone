@@ -29,7 +29,7 @@ export class Notification extends Entity {
     notifiers: BelongsToMany<User>
 
     @Relation(() => Tweet, 'notifications')
-    tweet: BelongsTo<Tweet>
+    tweet?: BelongsTo<Tweet>
 
     @Column()
     readAt: Date
