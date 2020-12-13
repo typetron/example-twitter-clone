@@ -94,8 +94,11 @@ export class TweetController {
 
     @Post(':Tweet/like')
     async like(tweet: Tweet) {
-
         let notification: Notification | undefined
+        /**
+         * Check to see if the tweet's user is not its author because
+         * we don't want to send a notification to its author
+         */
         if (tweet.user.get()?.id !== this.user.id) {
             notification = await Notification.firstOrCreate({
                 type: 'like',
