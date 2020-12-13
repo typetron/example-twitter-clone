@@ -1,6 +1,5 @@
-import { Column, Entity, Options, PrimaryColumn, Relation } from '@Typetron/Database'
+import { BelongsTo, Column, Entity, Options, PrimaryColumn, Relation } from '@Typetron/Database'
 import { Tweet } from './Tweet'
-import { BelongsTo } from '@Typetron/Database/Fields'
 
 @Options({
     table: 'media'

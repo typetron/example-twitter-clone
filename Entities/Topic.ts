@@ -1,6 +1,5 @@
-import { Column, Entity, Options, PrimaryColumn, Relation } from '@Typetron/Database'
+import { BelongsToMany, Column, Entity, Options, PrimaryColumn, Relation } from '@Typetron/Database'
 import { User } from 'App/Entities/User'
-import { BelongsToMany } from '@Typetron/Database/Fields'
 
 @Options({
     table: 'topic'

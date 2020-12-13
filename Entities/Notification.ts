@@ -1,6 +1,16 @@
-import { Column, CreatedAt, Entity, Enum, Options, PrimaryColumn, Relation, UpdatedAt } from '@Typetron/Database'
+import {
+    BelongsTo,
+    BelongsToMany,
+    Column,
+    CreatedAt,
+    Entity,
+    Enum,
+    Options,
+    PrimaryColumn,
+    Relation,
+    UpdatedAt
+} from '@Typetron/Database'
 import { User } from 'App/Entities/User'
-import { BelongsTo, BelongsToMany } from '@Typetron/Database/Fields'
 import { Tweet } from 'App/Entities/Tweet'
 
 @Options({

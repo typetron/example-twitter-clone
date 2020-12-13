@@ -1,8 +1,7 @@
-import { BelongsToManyOptions, Column, Options, Relation } from '@Typetron/Database'
+import { BelongsToMany, BelongsToManyOptions, Column, HasMany, Options, Relation } from '@Typetron/Database'
 import { User as Authenticable } from '@Typetron/Framework/Auth'
 import { Tweet } from 'App/Entities/Tweet'
 import { Like } from 'App/Entities/Like'
-import { BelongsToMany, HasMany } from '@Typetron/Database/Fields'
 import { Notification } from 'App/Entities/Notification'
 import { Topic } from 'App/Entities/Topic'
 
