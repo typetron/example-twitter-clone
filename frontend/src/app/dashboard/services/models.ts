@@ -70,3 +70,12 @@ export class FollowNotification extends BaseNotificationTemplate implements Noti
         return `/${this.users[0].username}`
     }
 }
+
+export class MentionNotification extends BaseNotificationTemplate implements NotificationTemplate {
+    icon = 'user'
+    titleSuffix = 'mentioned you'
+
+    get url(): string {
+        return `/tweet/${this.tweet.id}`
+    }
+}

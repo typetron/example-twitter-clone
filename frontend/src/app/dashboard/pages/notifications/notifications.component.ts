@@ -5,6 +5,7 @@ import {
     BaseNotificationTemplate,
     FollowNotification,
     LikeNotification,
+    MentionNotification,
     ReplyNotification,
     RetweetNotification
 } from '../../services/models'
@@ -27,6 +28,7 @@ export class NotificationsComponent implements OnInit, OnDestroy {
         reply: ReplyNotification,
         like: LikeNotification,
         retweet: RetweetNotification,
+        mention: MentionNotification,
     }
 
     notifications: BaseNotificationTemplate[] = []

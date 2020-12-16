@@ -7,7 +7,7 @@ export class Notification extends Model {
     id: number
 
     @Field()
-    type: 'follow' | 'like' | 'reply' | 'retweet'
+    type: 'follow' | 'like' | 'reply' | 'retweet' | 'mention'
 
     @Field()
     notifiers: User[] = []

@@ -51,39 +51,60 @@ export class TweetController {
         await tweet.media.save(...mediaFiles.map(media => new Media({path: media})))
 
         await this.addHashTags(tweet)
+        await this.sendMentionNotifications(tweet)
 
         /**
          * When the replyParent property is sent, it means the user replied this tweet.
          */
         if (form.replyParent) {
-            await this.addNotification(tweet, form.replyParent, 'reply')
+            await this.addTweetNotification(tweet, form.replyParent, 'reply')
         }
 
         /**
          * When the retweetParent property is sent, it means the user retweeted this tweet.
          */
         if (form.retweetParent) {
-            await this.addNotification(tweet, form.retweetParent, 'retweet')
+            await this.addTweetNotification(tweet, form.retweetParent, 'retweet')
         }
 
         await tweet.load('user')
         return TweetModel.from(tweet)
     }
 
-    private async addNotification(tweet: Tweet, parent: number, type: 'reply' | 'retweet') {
-        const retweetParent = await Tweet.find(parent)
-        const retweetUser = retweetParent?.user.get()
+    private async addTweetNotification(tweet: Tweet, parent: number, type: 'reply' | 'retweet') {
+        const parentTweet = await Tweet.find(parent)
+        const parentTweetUser = parentTweet?.user.get()
         /**
          * we need to create a 'reply' notification if the user that replied the tweet is not its author.
          */
-        if (retweetUser && retweetUser.id !== this.user.id) {
-            const notification = await Notification.firstOrCreate({
-                type: type,
-                user: retweetUser.id,
-                readAt: undefined,
-                tweet
-            })
-            await notification.notifiers.attach(this.user.id)
+        if (parentTweetUser && parentTweetUser.id !== this.user.id) {
+            await this.addNotification(tweet, parentTweetUser.id, type)
+        }
+    }
+
+    private async addNotification(tweet: Tweet, userId: number, type: Notification['type']) {
+        const notification = await Notification.create({
+            type: 'mention',
+            user: userId,
+            tweet
+        })
+        await notification.notifiers.attach(this.user.id)
+    }
+
+    private async addHashTags(tweet: Tweet) {
+        const hashtagsList = tweet.content.matchAll(/\B#(\w\w+)\b/gm)
+        const hashtagsNames = Array.from(hashtagsList).map(hashtag => hashtag[1])
+        const hashtags = await Hashtag.whereIn('name', hashtagsNames).get()
+
+        await tweet.hashtags.sync(...hashtags.pluck('id'))
+    }
+
+    private async sendMentionNotifications(tweet: Tweet) {
+        const mentionsList = tweet.content.matchAll(/\B@(\w\w+)\b/gm)
+        const usernames = Array.from(mentionsList).map(mention => mention[1])
+        const users = await User.whereIn('username', usernames).get()
+        for (const user of users) {
+            await this.addNotification(tweet, user.id, 'mention')
         }
     }
 
@@ -125,13 +146,5 @@ export class TweetController {
         }
         await tweet.delete()
         return TweetModel.from(tweet)
-    }
-
-    private async addHashTags(tweet: Tweet) {
-        const hashtagsList = tweet.content.matchAll(/\B#(\w\w+)\b/gm)
-        const hashtagsNames = Array.from(hashtagsList).map(hashtag => hashtag[1])
-        const hashtags = await Hashtag.whereIn('name', hashtagsNames).get()
-
-        await tweet.hashtags.sync(...hashtags.pluck('id'))
     }
 }
