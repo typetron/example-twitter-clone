@@ -17,7 +17,9 @@ export class NotificationController {
         const notifications = await Notification
             .with('notifiers', 'tweet')
             .where('userId', this.user.id)
-            .orderBy('createdAt').get()
+            .orderBy('createdAt')
+            .get()
+
         return NotificationModel.from(notifications)
     }
 
