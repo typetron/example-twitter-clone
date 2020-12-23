@@ -18,7 +18,7 @@ export class HomeController {
         const followings = await this.user.following.get()
         const tweets = this.getTweetsQuery(page, limit).whereIn('userId', followings.pluck('id').concat(this.user.id))
 
-        return TweetModel.fromMany(await tweets.get())
+        return TweetModel.from(tweets.get())
     }
 
     @Get('explore')
@@ -31,7 +31,7 @@ export class HomeController {
                 query => query.table('hashtags_tweets').select('tweetId').whereIn('hashTagId', userHashtags.pluck('id'))
             )
 
-        return TweetModel.fromMany(await tweets.get())
+        return TweetModel.from(tweets.get())
     }
 
     @Get(':username/tweets')
@@ -44,7 +44,7 @@ export class HomeController {
 
         const tweets = this.getTweetsQuery(page, limit).where('userId', user.id)
 
-        return TweetModel.fromMany(await tweets.get())
+        return TweetModel.from(tweets.get())
     }
 
     getTweetsQuery(page: number, limit: number) {

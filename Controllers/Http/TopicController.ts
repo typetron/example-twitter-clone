@@ -7,8 +7,7 @@ export class TopicController {
 
     @Get()
     async get() {
-        const topics = await Topic.get()
-        return TopicModel.fromMany(topics)
+        return TopicModel.from(Topic.get())
     }
 
 }

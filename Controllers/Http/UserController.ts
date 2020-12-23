@@ -33,7 +33,7 @@ export class UserController {
             .with(['followers', query => query.where('followerId', this.user.id)])
             .get()
 
-        return UserModel.fromMany(users)
+        return UserModel.from(users)
     }
 
     @Get(':username/following')
@@ -49,7 +49,7 @@ export class UserController {
             .with(['followers', query => query.where('followerId', this.user.id)])
             .get()
 
-        return UserModel.fromMany(users)
+        return UserModel.from(users)
     }
 
     @Patch()

@@ -37,7 +37,7 @@ export class TweetController {
             .withCount('likes', 'replies', 'retweets')
             .where('replyParentId', tweet)
             .get()
-        return TweetModel.fromMany(replies)
+        return TweetModel.from(replies)
     }
 
     @Post()

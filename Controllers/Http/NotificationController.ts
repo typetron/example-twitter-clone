@@ -18,7 +18,7 @@ export class NotificationController {
             .with('notifiers', 'tweet')
             .where('userId', this.user.id)
             .orderBy('createdAt').get()
-        return NotificationModel.fromMany(notifications)
+        return NotificationModel.from(notifications)
     }
 
     @Get('unread')
