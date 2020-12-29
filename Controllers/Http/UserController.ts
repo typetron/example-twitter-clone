@@ -56,11 +56,11 @@ export class UserController {
     async update(form: UserForm) {
         if (form.photo instanceof File) {
             await this.storage.delete(`public/${this.user.photo}`)
-            form.photo = await this.storage.put(form.photo, 'public')
+            form.photo = await this.storage.save(form.photo, 'public')
         }
         if (form.cover instanceof File) {
             await this.storage.delete(`public/${this.user.cover}`)
-            form.cover = await this.storage.put(form.cover, 'public')
+            form.cover = await this.storage.save(form.cover, 'public')
         }
         await this.user.save(form)
         return UserModel.from(this.user)
