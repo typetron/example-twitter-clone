@@ -1,32 +1,23 @@
 import { Field, Form, Rules } from '@Typetron/Forms'
-import { Image } from '@Typetron/Storage'
+import { File } from '@Typetron/Storage'
 import { Required } from '@Typetron/Validation'
+import { IsUsername } from 'App/Validators/IsUsername'
 
 export class UserForm extends Form {
     @Field()
-    @Rules(
-        Required
-    )
-    name?: string
+    @Rules(Required)
+    name: string
 
     @Field()
-    @Rules(
-        Required
-    )
-    username?: string
+    @Rules(Required, IsUsername)
+    username: string
 
     @Field()
-    @Rules(
-        Required
-    )
     bio?: string
 
     @Field()
-    photo?: Image | string
+    photo?: File | string
 
     @Field()
-    cover?: Image | string
-
-    @Field()
-    topics: number[] = []
+    cover?: File | string
 }

@@ -19,6 +19,7 @@ export class EditFormComponent implements OnInit {
         cover: undefined,
         photo: undefined,
         name: undefined,
+        username: undefined,
         bio: undefined,
     })
 

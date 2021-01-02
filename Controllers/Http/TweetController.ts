@@ -7,7 +7,7 @@ import { AuthUser } from '@Typetron/Framework/Auth'
 import { Like } from 'App/Entities/Like'
 import { Tweet as TweetModel } from '@Data/Models/Tweet'
 import { Inject } from '@Typetron/Container'
-import { Storage } from '@Typetron/Storage'
+import { File, Storage } from '@Typetron/Storage'
 import { Http, HttpError } from '@Typetron/Web'
 import { Notification } from 'App/Entities/Notification'
 import { Hashtag } from 'App/Entities/Hashtag'
@@ -44,6 +44,10 @@ export class TweetController {
     async create(form: TweetForm) {
         const tweet = new Tweet(form)
         await this.user.tweets.save(tweet)
+
+        if (form.media instanceof File) {
+            form.media = [form.media]
+        }
 
         const mediaFiles = await Promise.all(
             form.media.map(file => this.storage.save(file, 'public/tweets-media'))

@@ -23,12 +23,24 @@
             </nz-col>
         </nz-row>
     </nz-form-item>
-    <nz-form-item>
-        <nz-form-label nzFor="name">Name</nz-form-label>
-        <nz-form-control>
-            <input formControlName="name" id="name" nz-input placeholder="Add your name" type="text"/>
-        </nz-form-control>
-    </nz-form-item>
+    <nz-row [nzGutter]="16">
+        <nz-col [nzSpan]="12">
+            <nz-form-item>
+                <nz-form-label nzFor="name">Name</nz-form-label>
+                <nz-form-control>
+                    <input formControlName="name" id="name" nz-input placeholder="Add your name" type="text"/>
+                </nz-form-control>
+            </nz-form-item>
+        </nz-col>
+        <nz-col [nzSpan]="12">
+            <nz-form-item>
+                <nz-form-label nzFor="username">Username</nz-form-label>
+                <nz-form-control>
+                    <input formControlName="username" id="username" nz-input placeholder="Set your username" type="text"/>
+                </nz-form-control>
+            </nz-form-item>
+        </nz-col>
+    </nz-row>
     <nz-form-item>
         <nz-form-label nzFor="bio">Bio</nz-form-label>
         <nz-form-control>
