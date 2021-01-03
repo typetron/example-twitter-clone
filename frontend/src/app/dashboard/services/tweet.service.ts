@@ -14,7 +14,7 @@ export class TweetService extends ApiService {
     }
 
     getTweet(id: number): Promise<Tweet> {
-        return this.get(`tweet/${id}`)
+        return this.get(`tweets/${id}`)
     }
 
     getTweets(page = 1): Promise<Tweet[]> {
@@ -30,18 +30,18 @@ export class TweetService extends ApiService {
     }
 
     remove(id: number): Promise<Tweet> {
-        return super.delete<Tweet>(`tweet/${id}`)
+        return super.delete<Tweet>(`tweets/${id}`)
     }
 
     toggleLike(id: number): Promise<Tweet> {
-        return super.post<Tweet>(`tweet/${id}/like`)
+        return super.post<Tweet>(`tweets/${id}/like`)
     }
 
     replies(id: number): Promise<Tweet[]> {
-        return super.get<Tweet[]>(`tweet/${id}/replies`)
+        return super.get<Tweet[]>(`tweets/${id}/replies`)
     }
 
     retweet(id: number): Promise<Tweet> {
-        return super.post<Tweet>(`tweet/${id}/retweet`)
+        return super.post<Tweet>(`tweets/${id}/retweet`)
     }
 }

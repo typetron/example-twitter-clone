@@ -5,9 +5,9 @@ import { AuthMiddleware } from '@Typetron/Framework/Middleware'
 import { Notification as NotificationModel } from 'App/Models/Notification'
 import { Notification } from 'App/Entities/Notification'
 
-@Controller('notification')
+@Controller('notifications')
 @Middleware(AuthMiddleware)
-export class NotificationController {
+export class NotificationsController {
 
     @AuthUser()
     user: User

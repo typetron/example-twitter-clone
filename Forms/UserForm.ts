@@ -16,8 +16,8 @@ export class UserForm extends Form {
     bio?: string
 
     @Field()
-    photo?: File | string
+    photo?: File
 
     @Field()
-    cover?: File | string
+    cover?: File
 }

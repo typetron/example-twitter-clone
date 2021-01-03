@@ -13,10 +13,10 @@ export class NotificationService extends ApiService {
     ) {super(http)}
 
     list(): Promise<Notification[]> {
-        return this.get('notification')
+        return this.get('notifications')
     }
 
     read(): Promise<void> {
-        return this.post('notification/read')
+        return this.post('notifications/read')
     }
 }

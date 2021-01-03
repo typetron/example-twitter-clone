@@ -24,39 +24,39 @@ export class UserService extends ApiService {
     }
 
     async getUser(username: string): Promise<User> {
-        return this.get<User>(`user/${username}`)
+        return this.get<User>(`users/${username}`)
     }
 
     async followers(username: string): Promise<User[]> {
-        return this.get<User[]>(`user/${username}/followers`)
+        return this.get<User[]>(`users/${username}/followers`)
     }
 
     async following(username: string): Promise<User[]> {
-        return this.get<User[]>(`user/${username}/following`)
+        return this.get<User[]>(`users/${username}/following`)
     }
 
     async follow(id: number): Promise<User> {
-        return this.post<User>(`user/follow/${id}`)
+        return this.post<User>(`users/follow/${id}`)
     }
 
     async unfollow(id: number): Promise<User> {
-        return this.post<User>(`user/unfollow/${id}`)
+        return this.post<User>(`users/unfollow/${id}`)
     }
 
     async allTopics(): Promise<Topic[]> {
-        return this.get<Topic[]>(`topic`)
+        return this.get<Topic[]>(`topics`)
     }
 
     async topics(): Promise<Topic[]> {
-        return this.get<Topic[]>(`user/topics`)
+        return this.get<Topic[]>(`users/topics`)
     }
 
     async saveTopics(form: TopicsForm): Promise<User> {
-        return this.post<User>(`user/topics`, form)
+        return this.post<User>(`users/topics`, form)
     }
 
     async getUnreadNotifications(): Promise<void> {
-        this.unreadNotifications$.next(await this.get('notification/unread'))
+        this.unreadNotifications$.next(await this.get('notifications/unread'))
     }
 
     explore(page = 1): Promise<Tweet[]> {

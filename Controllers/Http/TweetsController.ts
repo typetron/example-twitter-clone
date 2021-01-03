@@ -13,9 +13,9 @@ import { Notification } from 'App/Entities/Notification'
 import { Hashtag } from 'App/Entities/Hashtag'
 import { Media } from 'App/Entities/Media'
 
-@Controller('tweet')
+@Controller('tweets')
 @Middleware(AuthMiddleware)
-export class TweetController {
+export class TweetsController {
 
     @AuthUser()
     user: User

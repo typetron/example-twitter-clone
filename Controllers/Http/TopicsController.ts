@@ -2,8 +2,8 @@ import { Controller, Get } from '@Typetron/Router'
 import { Topic as TopicModel } from 'App/Models/Topic'
 import { Topic } from 'App/Entities/Topic'
 
-@Controller('topic')
-export class TopicController {
+@Controller('topics')
+export class TopicsController {
 
     @Get()
     async get() {

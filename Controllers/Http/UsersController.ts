@@ -5,14 +5,14 @@ import { User } from 'App/Entities/User'
 import { AuthMiddleware } from '@Typetron/Framework/Middleware'
 import { UserForm } from 'App/Forms/UserForm'
 import { User as UserModel } from 'App/Models/User'
-import { File, Storage } from '@Typetron/Storage'
+import { Storage } from '@Typetron/Storage'
 import { TopicsForm } from 'App/Forms/TopicsForm'
 import { Notification } from 'App/Entities/Notification'
 import { Query } from '@Typetron/Database'
 
-@Controller('user')
+@Controller('users')
 @Middleware(AuthMiddleware)
-export class UserController {
+export class UsersController {
 
     @AuthUser()
     user: User
@@ -54,11 +54,11 @@ export class UserController {
 
     @Patch()
     async update(form: UserForm) {
-        if (form.photo instanceof File) {
+        if (form.photo) {
             await this.storage.delete(`public/${this.user.photo}`)
             form.photo = await this.storage.save(form.photo, 'public')
         }
-        if (form.cover instanceof File) {
+        if (form.cover) {
             await this.storage.delete(`public/${this.user.cover}`)
             form.cover = await this.storage.save(form.cover, 'public')
         }
