@@ -12,10 +12,4 @@ export class TweetForm extends Form {
 
     @Field()
     media: File | File[] = []
-
-    @Field()
-    replyParent?: number
-
-    @Field()
-    retweetParent?: number
 }

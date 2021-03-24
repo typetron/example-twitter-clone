@@ -1,4 +1,4 @@
-import { Controller, Get, Middleware, Patch, Post } from '@Typetron/Router'
+import { Controller, Get, Middleware, Post, Put } from '@Typetron/Router'
 import { Inject } from '@Typetron/Container'
 import { AuthUser } from '@Typetron/Framework/Auth'
 import { User } from 'App/Entities/User'
@@ -52,7 +52,7 @@ export class UsersController {
         return UserModel.from(users)
     }
 
-    @Patch()
+    @Put()
     async update(form: UserForm) {
         if (form.photo) {
             await this.storage.delete(`public/${this.user.photo}`)
@@ -63,12 +63,13 @@ export class UsersController {
             form.cover = await this.storage.save(form.cover, 'public')
         }
         await this.user.save(form)
+        await this.user.loadCount('followers', 'following')
         return UserModel.from(this.user)
     }
 
-    @Post('follow/:User')
+    @Post(':User/follow')
     async follow(userToFollow: User) {
-        await this.user.following.attach(userToFollow.id)
+        await this.user.following.add(userToFollow.id)
 
         const notification = await Notification.firstOrCreate({
             type: 'follow',
@@ -77,15 +78,15 @@ export class UsersController {
         })
 
         if (!await notification.notifiers.has(this.user.id)) {
-            await notification.notifiers.attach(this.user.id)
+            await notification.notifiers.add(this.user.id)
         }
 
         return UserModel.from(this.user)
     }
 
-    @Post('unfollow/:User')
+    @Post(':User/unfollow')
     async unfollow(userToUnfollow: User) {
-        await this.user.following.detach(userToUnfollow.id)
+        await this.user.following.remove(userToUnfollow.id)
         return UserModel.from(this.user)
     }
 

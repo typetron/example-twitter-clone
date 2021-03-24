@@ -63,7 +63,7 @@
         <nz-tab>
             <a [routerLink]="['.']" *nzTabLink nz-tab-link>Tweets</a>
             <ng-template nz-tab>
-                <app-tweets [username]="(authService.user$| async).id !==user.id ? user.username : undefined"></app-tweets>
+                <app-tweets [username]="user.username"></app-tweets>
             </ng-template>
         </nz-tab>
         <!--        <nz-tab>-->

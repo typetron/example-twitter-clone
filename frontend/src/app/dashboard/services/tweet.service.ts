@@ -26,7 +26,15 @@ export class TweetService extends ApiService {
     }
 
     tweet(form: object): Promise<Tweet> {
-        return this.post<Tweet>('tweet', toFormData(form))
+        return this.post<Tweet>('tweets', toFormData(form))
+    }
+
+    reply(parent: number, form: object): Promise<Tweet> {
+        return this.post<Tweet>(`tweets/${parent}/reply`, toFormData(form))
+    }
+
+    retweet(parent: number, form: object): Promise<Tweet> {
+        return this.post<Tweet>(`tweets/${parent}/retweet`, toFormData(form))
     }
 
     remove(id: number): Promise<Tweet> {
@@ -39,9 +47,5 @@ export class TweetService extends ApiService {
 
     replies(id: number): Promise<Tweet[]> {
         return super.get<Tweet[]>(`tweets/${id}/replies`)
-    }
-
-    retweet(id: number): Promise<Tweet> {
-        return super.post<Tweet>(`tweets/${id}/retweet`)
     }
 }

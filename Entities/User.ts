@@ -1,5 +1,5 @@
 import { BelongsToMany, BelongsToManyOptions, Column, HasMany, Options, Relation } from '@Typetron/Database'
-import { User as Authenticable } from '@Typetron/Framework/Auth'
+import { User as Authenticatable } from '@Typetron/Framework/Auth'
 import { Tweet } from 'App/Entities/Tweet'
 import { Like } from 'App/Entities/Like'
 import { Notification } from 'App/Entities/Notification'
@@ -8,7 +8,7 @@ import { Topic } from 'App/Entities/Topic'
 @Options({
     table: 'users'
 })
-export class User extends Authenticable {
+export class User extends Authenticatable {
     @Column()
     name: string
 

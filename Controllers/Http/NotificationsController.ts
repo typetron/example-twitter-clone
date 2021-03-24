@@ -29,7 +29,7 @@ export class NotificationsController {
     }
 
     @Post('read')
-    async markAsRead() {
+    async markAllAsRead() {
         await Notification.where('user', this.user.id).whereNull('readAt').update('readAt', new Date())
     }
 }

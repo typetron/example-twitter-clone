@@ -20,7 +20,7 @@ export class UserService extends ApiService {
     }
 
     async edit(form: object): Promise<User> {
-        return this.patch<User>('user', toFormData(form))
+        return this.put<User>('users', toFormData(form))
     }
 
     async getUser(username: string): Promise<User> {
@@ -36,11 +36,11 @@ export class UserService extends ApiService {
     }
 
     async follow(id: number): Promise<User> {
-        return this.post<User>(`users/follow/${id}`)
+        return this.post<User>(`users/${id}/follow`)
     }
 
     async unfollow(id: number): Promise<User> {
-        return this.post<User>(`users/unfollow/${id}`)
+        return this.post<User>(`users/${id}/unfollow`)
     }
 
     async allTopics(): Promise<Topic[]> {

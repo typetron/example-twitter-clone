@@ -12,8 +12,6 @@ export class TweetFormComponent implements OnInit {
 
     form = this.fb.group({
         content: undefined,
-        replyParent: undefined,
-        retweetParent: undefined,
         media: [[]],
     })
 
@@ -33,22 +31,22 @@ export class TweetFormComponent implements OnInit {
     ) {}
 
     ngOnInit(): void {
-        this.form.patchValue({
-            replyParent: this.replyParent?.id,
-            retweetParent: this.retweetParent?.id,
-        })
     }
 
     async tweet(): Promise<void> {
         this.loading = true
-        const tweet = await this.tweetService.tweet(this.form.value).finally(() => {
-            this.loading = false
-        })
+        let tweet: Tweet
+        if (this.replyParent) {
+            tweet = await this.tweetService.reply(this.replyParent.id, this.form.value).finally(() => {this.loading = false})
+        } else if (this.retweetParent) {
+            tweet = await this.tweetService.retweet(this.retweetParent.id, this.form.value).finally(() => {this.loading = false})
+        } else {
+            tweet = await this.tweetService.tweet(this.form.value).finally(() => {this.loading = false})
+        }
         this.tweeted.emit(tweet)
         this.form.reset({
-            media: []
+            media: this.media = []
         })
-        this.media = []
     }
 
     beforeUpload(): (file: File) => boolean {

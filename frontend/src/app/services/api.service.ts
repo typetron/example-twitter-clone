@@ -50,6 +50,12 @@ export class ApiService {
         }).toPromise()
     }
 
+    put<T>(path: string, data?: object, headers?: object): Promise<T> {
+        return this.http.put<T>(this.getEndpoint(path), data, {
+            headers: this.getHeaders(headers || {})
+        }).toPromise()
+    }
+
     getEndpoint(path: string): string {
         return `${environment.apiUrl}/${path}`
     }

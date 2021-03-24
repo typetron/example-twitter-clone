@@ -10,11 +10,12 @@
 	"scripts": {
 		"start": "ts-node-dev -r tsconfig-paths/register --respawn index.ts",
 		"prod": "ts-node -r tsconfig-paths/register index.ts",
+		"cli": "typetron routes",
 		"frontend": "cd frontend && ng serve",
 		"test": "mocha"
 	},
 	"dependencies": {
-		"@typetron/framework": "0.0.21",
+		"@typetron/framework": "0.1.0",
 		"reflect-metadata": "^0.1.13",
 		"ts-node": "^9.1.0",
 		"tsconfig-paths": "^3.9.0",
