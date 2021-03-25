@@ -1,35 +1,28 @@
-import { Component, OnInit } from '@angular/core'
-import { FormBuilder, Validators } from '@angular/forms'
+import { Component } from '@angular/core'
 import { Router } from '@angular/router'
+import { FormBuilder } from 'src/app/util'
 import { AuthService } from '../../services/auth.service'
+import { LoginForm } from '../../../../../Forms/LoginForm'
 
 @Component({
     selector: 'app-login',
     templateUrl: './login.component.html',
     styleUrls: ['./login.component.scss']
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent {
 
     loading = false
 
-    form = this.fb.group({
-        username: [null, [Validators.required]],
-        password: [null, [Validators.required]],
-    })
+    form = FormBuilder.build(LoginForm)
 
     constructor(
-        private fb: FormBuilder,
         private router: Router,
         private authService: AuthService
     ) {}
 
-    ngOnInit(): void {
-    }
-
     async login(): Promise<void> {
         this.loading = true
-        const form = this.form.value
-        await this.authService.login(form.username, form.password).finally(() => this.loading = false)
+        await this.authService.login(this.form.value).finally(() => this.loading = false)
         this.loading = true
         await this.router.navigate(['/home'])
         this.loading = false

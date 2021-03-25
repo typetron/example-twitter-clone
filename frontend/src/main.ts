@@ -1,3 +1,4 @@
+import 'reflect-metadata'
 import '@Typetron/Support'
 import { enableProdMode, Injector } from '@angular/core'
 import { platformBrowserDynamic } from '@angular/platform-browser-dynamic'

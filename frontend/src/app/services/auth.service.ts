@@ -3,6 +3,7 @@ import { ApiService } from './api.service'
 import { HttpClient } from '@angular/common/http'
 import { User } from '@Data/Models/User'
 import { BehaviorSubject } from 'rxjs'
+import { LoginForm } from '../../../../Forms/LoginForm'
 
 @Injectable({
     providedIn: 'root'
@@ -31,11 +32,8 @@ export class AuthService extends ApiService {
         this.user$.next(user)
     }
 
-    async login(username: string, password: string): Promise<void> {
-        const response = await this.http.post<{token: string, user: User}>(this.getEndpoint('login'), {
-            username,
-            password
-        }).toPromise()
+    async login(form: LoginForm): Promise<void> {
+        const response = await this.http.post<{token: string, user: User}>(this.getEndpoint('login'), form).toPromise()
 
         this.setUser(response.user)
         localStorage.setItem('token', response.token)
