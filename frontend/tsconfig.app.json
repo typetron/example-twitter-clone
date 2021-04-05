@@ -13,6 +13,9 @@
             ],
             "@Data/Models/*": [
                 "../Models/*"
+            ],
+            "@Data/Forms/*": [
+                "../Forms/*"
             ]
         }
     },
