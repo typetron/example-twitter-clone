@@ -1,17 +1,17 @@
 <form (ngSubmit)="tweet()" [formGroup]="form" nz-form nzLayout="vertical" nzNoColon>
     <nz-row *ngIf="showParent && replyParent" class="margin-b-medium">
-        <app-tweet [tweet]="replyParent" style="border-radius: 5px; border: 1px solid #ddd" [footer]="false"></app-tweet>
+        <app-tweet [footer]="false" [tweet]="replyParent" class="highlight-tweet"></app-tweet>
     </nz-row>
 
     <nz-form-item class="margin-t-medium">
-        <nz-form-control>
-            <textarea formControlName="content" id="bio" nz-input [placeholder]="placeholder" type="text"></textarea>
+        <nz-form-control [nzErrorTip]="form.controls.content.errors | firstError">
+            <textarea [placeholder]="placeholder" formControlName="content" nz-input type="text"></textarea>
         </nz-form-control>
     </nz-form-item>
 
     <nz-row nzJustify="center">
-        <nz-col>
-            <nz-carousel *ngIf="media.length" nzEffect="scrollx" class="tweet-carousel margin-y-medium">
+        <nz-col [nzSpan]="18">
+            <nz-carousel *ngIf="media.length" class="tweet-carousel full-width" nzEffect="scrollx">
                 <div nz-carousel-content *ngFor="let item of media; let index = index" [style]="{backgroundImage: 'url('+ item +')'}">
                     <button nz-button nzType="text" nzShape="round" type="button" (click)="removeMedia(index)">
                         <i nz-icon nzType="close-circle"></i>
@@ -21,8 +21,8 @@
         </nz-col>
     </nz-row>
 
-    <nz-row *ngIf="showParent && retweetParent && retweetParent.user" class="margin-b-medium">
-        <app-tweet [tweet]="retweetParent" [footer]="false" style="border-radius: 5px; border: 1px solid #ddd"></app-tweet>
+    <nz-row *ngIf="showParent && retweetParent && retweetParent.user" class="margin-b-medium margin-t-large">
+        <app-tweet [footer]="false" [tweet]="retweetParent" class="highlight-tweet"></app-tweet>
     </nz-row>
     <nz-row nzJustify="space-between">
         <nz-col>

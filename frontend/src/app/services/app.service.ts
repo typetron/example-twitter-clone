@@ -8,5 +8,4 @@ export class AppService {
 
     scroll$ = new Subject<Event>()
 
-    constructor() {}
 }

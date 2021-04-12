@@ -3,7 +3,7 @@ import { environment } from '../../../../environments/environment'
 import { NzModalService } from 'ng-zorro-antd/modal'
 import { ActivatedRoute } from '@angular/router'
 import { Tweet } from '@Data/Models/Tweet'
-import { TweetService } from '../../services/tweet.service'
+import { TweetService } from 'Services'
 
 @Component({
     selector: 'app-tweet-page',

@@ -1,13 +1,19 @@
 import { DatabaseConfig } from '@Typetron/Framework'
-import { MysqlDriver } from '@Typetron/Database/Drivers'
+import { MysqlDriver, SqliteDriver } from '@Typetron/Database/Drivers'
 
 export default new DatabaseConfig({
-
-    driver: new MysqlDriver({host: 'localhost', user: 'root', password: 'root', database: 'typetron_twitter_clone'}),
-
     entities: './Entities',
-
     synchronizeSchema: true,
+    migrationsDirectory: 'migrations',
+    driver: process.env.databaseDriver ?? 'sqlite',
 
-    migrationsDirectory: 'migrations'
+    drivers: {
+        sqlite: () => new SqliteDriver(process.env.database ?? 'database.sqlite'),
+        mysql: () => new MysqlDriver({
+            host: process.env.databaseHost,
+            user: process.env.databaseUser,
+            password: process.env.databasePassword,
+            database: process.env.database,
+        }),
+    }
 })

@@ -14,6 +14,9 @@
 		"lib": [
 			"esnext"
 		],
+		"types": [
+			"reflect-metadata"
+		],
 		"paths": {
 			"App/*": [
 				"*"
@@ -31,7 +34,6 @@
 	},
 	"include": [
 		"**/*.ts"
-
 	],
 	"exclude": [
 		"test",

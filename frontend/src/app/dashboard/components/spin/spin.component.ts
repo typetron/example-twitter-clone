@@ -1,15 +1,8 @@
-import { Component, OnInit } from '@angular/core'
+import { Component } from '@angular/core'
 
 @Component({
     selector: 'app-spin',
     templateUrl: './spin.component.html',
     styleUrls: ['./spin.component.scss']
 })
-export class SpinComponent implements OnInit {
-
-    constructor() { }
-
-    ngOnInit(): void {
-    }
-
-}
+export class SpinComponent {}

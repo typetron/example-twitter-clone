@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core'
 import { EditFormComponent } from './edit-form/edit-form.component'
 import { NzModalService } from 'ng-zorro-antd/modal'
-import { UserService } from '../../user.service'
 import { environment } from '../../../../environments/environment'
 import { ActivatedRoute } from '@angular/router'
 import { User } from '@Data/Models/User'
 import { TopicsFormComponent } from './topics-form/topics-form.component'
-import { AuthService } from '../../../services/auth.service'
+import { AuthService, UserService } from 'Services'
+import { isValid } from '../../../util'
 
 @Component({
     selector: 'app-profile',
@@ -42,10 +42,15 @@ export class ProfileComponent implements OnInit {
         this.modal.create({
             nzTitle: 'Edit profile',
             nzContent: EditFormComponent,
+            nzWidth: 700,
             nzComponentParams: {
                 user: this.user
             },
             nzOnOk: async (modal) => {
+                if (!isValid(modal.form)) {
+                    return false
+                }
+
                 try {
                     const user = await this.userService.edit(modal.form.value)
                     this.authService.setUser(this.user = user)

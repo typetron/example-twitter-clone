@@ -1,7 +1,10 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core'
-import { FormBuilder } from '@angular/forms'
-import { TweetService } from '../../services/tweet.service'
+// import { FormBuilder } from '@angular/forms'
 import { Tweet } from '@Data/Models/Tweet'
+import { TweetService } from 'Services'
+import { TweetForm } from '@Data/Forms/TweetForm'
+import { FormBuilder } from '@typetron/angular'
+import { isValid } from '../../../util'
 
 @Component({
     selector: 'app-tweet-form',
@@ -10,10 +13,7 @@ import { Tweet } from '@Data/Models/Tweet'
 })
 export class TweetFormComponent implements OnInit {
 
-    form = this.fb.group({
-        content: undefined,
-        media: [[]],
-    })
+    form = FormBuilder.build(TweetForm)
 
     media: string[] = []
 
@@ -22,11 +22,10 @@ export class TweetFormComponent implements OnInit {
     @Input() showParent = true
     @Input() replyParent?: Tweet
     @Input() retweetParent?: Tweet
-    @Input() placeholder = 'What\'s new?'
+    @Input() placeholder = `What's new?`
     @Output() tweeted = new EventEmitter<Tweet>()
 
     constructor(
-        private fb: FormBuilder,
         private tweetService: TweetService
     ) {}
 
@@ -34,6 +33,10 @@ export class TweetFormComponent implements OnInit {
     }
 
     async tweet(): Promise<void> {
+        if (!isValid(this.form)) {
+            return
+        }
+
         this.loading = true
         let tweet: Tweet
         if (this.replyParent) {
@@ -44,9 +47,8 @@ export class TweetFormComponent implements OnInit {
             tweet = await this.tweetService.tweet(this.form.value).finally(() => {this.loading = false})
         }
         this.tweeted.emit(tweet)
-        this.form.reset({
-            media: this.media = []
-        })
+        this.media = []
+        this.form.reset()
     }
 
     beforeUpload(): (file: File) => boolean {

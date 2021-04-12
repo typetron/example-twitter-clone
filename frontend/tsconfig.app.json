@@ -8,8 +8,14 @@
         ],
         "strictPropertyInitialization": false,
         "paths": {
+            "Services": [
+                "./src/app/services"
+            ],
+            "App/Validators/*": [
+                "../Validators/*"
+            ],
             "@Typetron/*": [
-                "node_modules/@typetron/framework/*"
+                "../node_modules/@typetron/framework/*"
             ],
             "@Data/Models/*": [
                 "../Models/*"
@@ -24,7 +30,6 @@
         "src/polyfills.ts"
     ],
     "include": [
-        "src/**/*.d.ts",
-        "node_modules/@typetron/framework/Support/*.ts"
+        "src/**/*.d.ts"
     ]
 }

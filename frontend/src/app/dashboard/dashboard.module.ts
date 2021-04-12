@@ -45,6 +45,7 @@ import { NzCarouselModule } from 'ng-zorro-antd/carousel'
 import { NzBadgeModule } from 'ng-zorro-antd/badge'
 import { NzCardModule } from 'ng-zorro-antd/card'
 import { FollowerComponent } from './components/follower/follower.component'
+import { SharedModule } from '../shared/shared.module'
 
 @NgModule({
     declarations: [
@@ -95,6 +96,7 @@ import { FollowerComponent } from './components/follower/follower.component'
         NzCarouselModule,
         NzBadgeModule,
         NzCardModule,
+        SharedModule,
     ]
 })
 export class DashboardModule {}

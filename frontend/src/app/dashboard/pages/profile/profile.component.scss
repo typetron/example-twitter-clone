@@ -18,3 +18,17 @@ nz-tabset ::ng-deep {
         }
     }
 }
+
+.cover {
+    width: 100%;
+    height: 200px;
+    background-size: cover;
+    background-position: center;
+}
+
+.profile-photo {
+    position: absolute;
+    top: 150px;
+    width: 100%;
+    left: 24px;
+}

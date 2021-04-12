@@ -1,41 +1,53 @@
-import { suite, test } from '@testdeck/mocha';
-import { expect } from 'chai';
-import { TestCase } from 'Test/TestCase';
-import { File } from '@Typetron/Storage';
-import { User } from 'App/Entities/User';
+import { suite, test } from '@testdeck/mocha'
+import { expect } from 'chai'
+import { TestCase } from 'Test/TestCase'
+import { File } from '@Typetron/Storage'
+import { User } from 'App/Entities/User'
+import { User as UserModel } from '@Data/Models/User'
 
 @suite
 class UserControllerTest extends TestCase {
+    private user: User
+
+    async before() {
+        await super.before()
+        this.login(this.user = await this.createUser())
+    }
 
     @test
     async updatesUser() {
-        this.loginById(1);
-        const photo = new File('avatar.jpg');
-        photo.directory = 'test';
-        photo.saved = true;
-        const cover = new File('cover.jpg');
-        cover.directory = 'test';
-        cover.saved = true;
-        const response = await this.patch('user.update', {
+        const photo = new File('avatar.jpg')
+        photo.directory = 'test'
+        photo.saved = true
+        const cover = new File('cover.jpg')
+        cover.directory = 'test'
+        cover.saved = true
+        const response = await this.put('users.update', {
             name: 'Joe Joe',
             bio: `joe's bio`,
+            username: 'joe',
             photo,
             cover,
-        });
-        expect(response.content).to.deep.include({
+        })
+        expect(response.body).to.deep.include({
+            username: 'joe',
             name: 'Joe Joe',
             bio: `joe's bio`,
-        });
+        })
     }
 
     @test
     async canFollowUser() {
-        this.loginById(1);
-        const user = await User.find(2);
-        const response = await this.post(['user.follow', {User: user.id}]);
-        expect(response.content).to.deep.include({
-            name: 'Joe Joe',
-            bio: `joe's bio`,
-        });
+        const user = await this.createUser({
+            name: 'Joe Joeeeee',
+            bio: `joe's biooooo`,
+        })
+
+        const response = await this.post<UserModel>(['users.follow', {User: user.id}])
+        expect(response.body).to.deep.include({
+            username: this.user.username,
+            id: this.user.id,
+        })
+        expect(response.body.following).to.have.length(1)
     }
 }

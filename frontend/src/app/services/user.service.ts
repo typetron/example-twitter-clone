@@ -3,10 +3,11 @@ import { HttpClient } from '@angular/common/http'
 import { User } from '@Data/Models/User'
 import { toFormData } from '../util'
 import { Topic } from '@Data/Models/Topic'
-import { TopicsForm } from '../../../../Forms/TopicsForm'
+import { TopicsForm } from '@Data/Forms/TopicsForm'
 import { BehaviorSubject } from 'rxjs'
-import { ApiService } from '../services/api.service'
-import { Tweet } from '../../../../Models/Tweet'
+import { ApiService } from './api.service'
+import { Tweet } from '@Data/Models/Tweet'
+import { UserForm } from '@Data/Forms/UserForm'
 
 @Injectable({
     providedIn: 'root'
@@ -19,7 +20,7 @@ export class UserService extends ApiService {
         super(http)
     }
 
-    async edit(form: object): Promise<User> {
+    async edit(form: UserForm): Promise<User> {
         return this.put<User>('users', toFormData(form))
     }
 

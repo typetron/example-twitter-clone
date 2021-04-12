@@ -1,8 +1,9 @@
 import { Component, Input, OnInit } from '@angular/core'
-import { FormBuilder } from '@angular/forms'
 import { NzModalRef } from 'ng-zorro-antd/modal'
 import { User } from '@Data/Models/User'
 import { environment } from '../../../../../environments/environment'
+import { FormBuilder } from '@typetron/angular'
+import { UserForm } from '@Data/Forms/UserForm'
 
 @Component({
     selector: 'app-edit-form',
@@ -14,15 +15,7 @@ export class EditFormComponent implements OnInit {
     @Input() user!: User
 
     imgPath = environment.apiUrl
-
-    form = this.fb.group({
-        cover: undefined,
-        photo: undefined,
-        name: undefined,
-        username: undefined,
-        bio: undefined,
-    })
-
+    form = FormBuilder.build(UserForm)
     files = {
         cover: '',
         photo: '',
@@ -30,7 +23,6 @@ export class EditFormComponent implements OnInit {
 
     constructor(
         public modal: NzModalRef,
-        private fb: FormBuilder
     ) {}
 
     ngOnInit(): void {
@@ -52,5 +44,4 @@ export class EditFormComponent implements OnInit {
             return false
         }
     }
-
 }

@@ -1,18 +1,17 @@
-import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core'
+import { Component, EventEmitter, Input, OnChanges, Output, SimpleChanges } from '@angular/core'
 import { Tweet } from '@Data/Models/Tweet'
-import { TweetService } from '../../services/tweet.service'
 import { NzMessageService } from 'ng-zorro-antd/message'
 import { environment } from '../../../../environments/environment'
 import { NzModalService } from 'ng-zorro-antd/modal'
 import { TweetFormComponent } from '../tweet-form/tweet-form.component'
-import { AuthService } from '../../../services/auth.service'
+import { AuthService, TweetService } from 'Services'
 
 @Component({
     selector: 'app-tweet',
     templateUrl: './tweet.component.html',
     styleUrls: ['./tweet.component.scss']
 })
-export class TweetComponent implements OnInit, OnChanges {
+export class TweetComponent implements OnChanges {
     imgPath = environment.apiUrl
 
     @Input() tweet!: Tweet
@@ -37,10 +36,6 @@ export class TweetComponent implements OnInit, OnChanges {
         return !!this.tweet.likes.find(item => item.user.id === this.auth.user()?.id)
     }
 
-    async ngOnInit(): Promise<void> {
-
-    }
-
     async remove(): Promise<void> {
         await this.tweetService.remove(this.tweet.id)
         this.message.success('Tweet deleted')
@@ -55,6 +50,7 @@ export class TweetComponent implements OnInit, OnChanges {
     async retweet(): Promise<void> {
         const modal = this.modal.create({
             nzTitle: 'Retweet',
+            nzWidth: 650,
             nzContent: TweetFormComponent,
             nzComponentParams: {
                 retweetParent: {
@@ -75,6 +71,7 @@ export class TweetComponent implements OnInit, OnChanges {
     async reply(): Promise<void> {
         const modal = this.modal.create({
             nzTitle: 'Reply',
+            nzWidth: 650,
             nzContent: TweetFormComponent,
             nzComponentParams: {
                 replyParent: {

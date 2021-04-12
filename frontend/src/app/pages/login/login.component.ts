@@ -1,8 +1,9 @@
 import { Component } from '@angular/core'
 import { Router } from '@angular/router'
-import { FormBuilder } from 'src/app/util'
-import { AuthService } from '../../services/auth.service'
+import { AuthService } from 'Services'
 import { LoginForm } from '@Data/Forms/LoginForm'
+import { FormBuilder } from '@typetron/angular'
+import { isValid } from '../../util'
 
 @Component({
     selector: 'app-login',
@@ -21,6 +22,9 @@ export class LoginComponent {
     ) {}
 
     async login(): Promise<void> {
+        if (!isValid(this.form)) {
+            return
+        }
         this.loading = true
         await this.authService.login(this.form.value).finally(() => this.loading = false)
         this.loading = true

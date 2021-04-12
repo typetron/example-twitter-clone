@@ -3,4 +3,5 @@ node_modules
 .idea
 .nyc_output
 coverage
-/src/database.sqlite
+.env
+database-local.sqlite

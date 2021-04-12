@@ -3,8 +3,9 @@
 </div>
 
 <app-spin *ngIf="loading"></app-spin>
+
 <ng-container *ngIf="!loading">
-    <app-notification *ngFor="let notification of notifications" [notification]="notification" (click)="redirect(notification)" class="clickable"></app-notification>
+    <app-notification (click)="redirect(notification)" *ngFor="let notification of notifications" [notification]="notification" class="clickable margin-t-small"></app-notification>
 </ng-container>
 
 <h3 *ngIf="!loading && !notifications.length" class="margin-t-large">There are no notifications yet!</h3>

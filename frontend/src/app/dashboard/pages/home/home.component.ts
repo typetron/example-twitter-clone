@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core'
+import { Component } from '@angular/core'
 import { Subject } from 'rxjs'
 
 @Component({
@@ -6,14 +6,6 @@ import { Subject } from 'rxjs'
     templateUrl: './home.component.html',
     styleUrls: ['./home.component.scss']
 })
-export class HomeComponent implements OnInit {
-
+export class HomeComponent {
     update$ = new Subject()
-
-    constructor() {}
-
-    async ngOnInit(): Promise<void> {
-
-    }
-
 }

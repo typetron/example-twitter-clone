@@ -1,10 +1,8 @@
 import { Component, Input, OnInit } from '@angular/core'
-import { TweetService } from '../../../services/tweet.service'
+import { AppService, TweetService, UserService } from 'Services'
 import { Tweet } from '@Data/Models/Tweet'
 import { filter } from 'rxjs/operators'
-import { AppService } from '../../../../services/app.service'
 import { Subject } from 'rxjs'
-import { UserService } from '../../../user.service'
 
 @Component({
     selector: 'app-tweets',
@@ -13,14 +11,9 @@ import { UserService } from '../../../user.service'
 })
 export class TweetsComponent implements OnInit {
 
-    @Input()
-    username?: string
-
-    @Input()
-    explore = false
-
-    @Input()
-    update$ = new Subject()
+    @Input() username?: string
+    @Input() explore = false
+    @Input() update$ = new Subject()
 
     tweets: Tweet[] = []
     page = 1
@@ -72,7 +65,7 @@ export class TweetsComponent implements OnInit {
                 tweets = await this.tweetService.getTweets(this.page).finally(() => this.loading = false)
             }
         }
-        this.noMoreTweets = !Boolean(tweets.length)
+        this.noMoreTweets = !tweets.length
         this.tweets.push(...tweets)
     }
 }

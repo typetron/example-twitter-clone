@@ -1,24 +1,24 @@
 <form (keyup.enter)="modal.triggerOk()" [formGroup]="form" nz-form nzLayout="vertical" nzNoColon enctype="multipart/form-data">
     <nz-form-item>
         <nz-form-label nzFor="cover">Cover</nz-form-label>
-        <nz-form-control nzSpan="12">
+        <nz-form-control [nzErrorTip]="form.controls.cover.errors | firstError" nzSpan="12">
             <nz-upload [nzBeforeUpload]="beforeUpload('cover')">
                 <button nz-button><i nz-icon nzType="upload"></i>Select cover</button>
             </nz-upload>
         </nz-form-control>
-        <div *ngIf="files.cover" [ngStyle]="{backgroundImage: 'url('+files.cover +')'}" style="height: 123px;background-size: cover; background-position: center; margin-top: 24px"></div>
+        <div *ngIf="files.cover" [ngStyle]="{backgroundImage: 'url('+files.cover +')'}" class="avatar margin-t-large" style="height: 180px"></div>
     </nz-form-item>
     <nz-form-item>
         <nz-form-label nzFor="photo">Photo</nz-form-label>
         <nz-row nzAlign="middle">
-            <nz-form-control nzSpan="12">
+            <nz-form-control [nzErrorTip]="form.controls.photo.errors | firstError" nzSpan="12">
                 <nz-upload [nzBeforeUpload]="beforeUpload('photo')">
                     <button nz-button><i nz-icon nzType="upload"></i>Select photo</button>
                 </nz-upload>
             </nz-form-control>
             <nz-col nzSpan="12">
                 <nz-row nzJustify="center">
-                    <nz-avatar [ngStyle]="{backgroundImage: 'url('+ files.photo  +')', backgroundColor: '#72bbff' }" [nzSize]="100" [nzText]="!files.photo ? 'Preview' : undefined" style="vertical-align: middle; color: #fff; background-position: center; background-size: cover;"></nz-avatar>
+                    <nz-avatar [ngStyle]="{backgroundImage: 'url('+ files.photo  +')', backgroundColor: '#72bbff' }" [nzSize]="100" [nzText]="!files.photo ? 'Preview' : undefined" class="avatar"></nz-avatar>
                 </nz-row>
             </nz-col>
         </nz-row>
@@ -27,7 +27,7 @@
         <nz-col [nzSpan]="12">
             <nz-form-item>
                 <nz-form-label nzFor="name">Name</nz-form-label>
-                <nz-form-control>
+                <nz-form-control [nzErrorTip]="form.controls.name.errors | firstError">
                     <input formControlName="name" id="name" nz-input placeholder="Add your name" type="text"/>
                 </nz-form-control>
             </nz-form-item>
@@ -35,7 +35,7 @@
         <nz-col [nzSpan]="12">
             <nz-form-item>
                 <nz-form-label nzFor="username">Username</nz-form-label>
-                <nz-form-control>
+                <nz-form-control [nzErrorTip]="form.controls.username.errors | firstError">
                     <input formControlName="username" id="username" nz-input placeholder="Set your username" type="text"/>
                 </nz-form-control>
             </nz-form-item>
@@ -43,8 +43,8 @@
     </nz-row>
     <nz-form-item>
         <nz-form-label nzFor="bio">Bio</nz-form-label>
-        <nz-form-control>
-            <textarea formControlName="bio" id="bio" nz-input placeholder="Add your bio" type="text" rows="5"></textarea>
+        <nz-form-control [nzErrorTip]="form.controls.bio.errors | firstError">
+            <textarea formControlName="bio" id="bio" nz-input placeholder="Add your bio" rows="4" type="text"></textarea>
         </nz-form-control>
     </nz-form-item>
 </form>

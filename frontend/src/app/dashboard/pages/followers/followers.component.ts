@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core'
 import { ActivatedRoute } from '@angular/router'
-import { UserService } from '../../user.service'
 import { User } from '@Data/Models/User'
-import { AuthService } from '../../../services/auth.service'
+import { AuthService, UserService } from 'Services'
 
 @Component({
     selector: 'app-followers',

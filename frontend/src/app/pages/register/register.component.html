@@ -1,4 +1,4 @@
-<form (ngSubmit)="register()" [formGroup]="form" autocomplete="off" class="form" nz-form>
+<form (ngSubmit)="form.markAllAsTouched(); !form.invalid && register()" [formGroup]="form" autocomplete="off" class="form" nz-form>
     <nz-form-item>
         <nz-form-control nzErrorTip="Please input your username!">
             <nz-input-group nzPrefixIcon="user">

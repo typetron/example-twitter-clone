@@ -5,9 +5,7 @@ import { File } from '@Typetron/Storage'
 export class TweetForm extends Form {
 
     @Field()
-    @Rules(
-        Required,
-    )
+    @Rules(Required)
     content: string
 
     @Field()

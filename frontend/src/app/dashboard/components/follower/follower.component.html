@@ -1,10 +1,9 @@
 <nz-card class="full-width margin-b-large">
-    <nz-row nzAlign="middle" [nzGutter]="8" style="flex-wrap: nowrap">
+    <nz-row [nzGutter]="8" nzAlign="middle">
         <nz-col>
             <nz-avatar
                 [ngStyle]="{backgroundImage: 'url('+imgPath+'/' + user.photo+')', backgroundColor: '#ddd' }" [nzSize]="50" [nzText]="!user.photo ? user?.name : ''"
-                style="vertical-align: middle;color: #888;background-size: cover;background-position: center;"
-                class="margin-r-small"
+                class="avatar margin-r-small"
             ></nz-avatar>
         </nz-col>
         <nz-col [nzFlex]="1">
@@ -17,8 +16,8 @@
                 {{user.bio?.limit( 150 )}}
             </div>
         </nz-col>
-        <nz-col style="white-space: nowrap">
-            <ng-container *ngIf="user.id !== authUser?.id; else thisIsYou">
+        <nz-col>
+            <ng-container *ngIf="user.id !== authUser.id; else thisIsYou">
                 <button *ngIf="user.followers.findWhere('id', authUser.id)" nz-button nzType="danger">
                     Unfollow
                 </button>
@@ -28,8 +27,6 @@
             </ng-container>
         </nz-col>
     </nz-row>
-
-
 </nz-card>
 
 <ng-template #thisIsYou>

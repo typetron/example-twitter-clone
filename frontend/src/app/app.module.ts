@@ -17,6 +17,7 @@ import { NzFormModule } from 'ng-zorro-antd/form'
 import { ReactiveFormsModule } from '@angular/forms'
 import { NzInputModule } from 'ng-zorro-antd/input'
 import { AuthComponent } from './layouts/auth/auth.component'
+import { SharedModule } from './shared/shared.module'
 
 registerLocaleData(en)
 
@@ -36,7 +37,8 @@ registerLocaleData(en)
         NzButtonModule,
         NzFormModule,
         ReactiveFormsModule,
-        NzInputModule
+        NzInputModule,
+        SharedModule
     ],
     providers: [
         {provide: NZ_I18N, useValue: en_US},

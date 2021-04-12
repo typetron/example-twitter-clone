@@ -29,6 +29,11 @@ export class RegisterComponent implements OnInit {
     }
 
     async register(): Promise<void> {
+
+        if (!isValid(this.form)) {
+            return
+        }
+
         this.loading = true
         const form = this.form.value
         await this.authService.register(form).finally(() => this.loading = false)

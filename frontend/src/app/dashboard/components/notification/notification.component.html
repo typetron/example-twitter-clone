@@ -1,4 +1,4 @@
-<nz-row [nzGutter]="[8, 8]" style="flex-wrap: nowrap;">
+<nz-row [nzGutter]="[8, 8]">
     <nz-col>
         <i [nzType]="notification.icon" class="icon" nz-icon></i>
     </nz-col>
@@ -6,8 +6,7 @@
         <nz-avatar
             *ngFor="let user of notification.users"
             [ngStyle]="{backgroundImage: 'url('+imgPath+'/' + user.photo+')', backgroundColor: color }" [nzSize]="50" [nzText]="!user.photo ? user?.name : ''"
-            style="vertical-align: middle;color: #888;background-size: cover;background-position: center;"
-            class="margin-r-small"
+            class="avatar margin-r-small"
         >
         </nz-avatar>
         <h3>

@@ -3,7 +3,8 @@ import { ApiService } from './api.service'
 import { HttpClient } from '@angular/common/http'
 import { User } from '@Data/Models/User'
 import { BehaviorSubject } from 'rxjs'
-import { LoginForm } from '../../../../Forms/LoginForm'
+import { LoginForm } from '@Data/Forms/LoginForm'
+import { RegisterForm } from '@Data/Forms/RegisterForm'
 
 @Injectable({
     providedIn: 'root'
@@ -39,7 +40,7 @@ export class AuthService extends ApiService {
         localStorage.setItem('token', response.token)
     }
 
-    register(form: object): Promise<User> {
+    register(form: RegisterForm): Promise<User> {
         return this.http.post<User>(this.getEndpoint('register'), form).toPromise()
     }
 

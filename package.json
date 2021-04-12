@@ -8,16 +8,18 @@
 		"name": "Ionel Lupu"
 	},
 	"scripts": {
-		"start": "ts-node-dev -r tsconfig-paths/register --respawn index.ts",
-		"prod": "ts-node -r tsconfig-paths/register index.ts",
+		"start": "ts-node-dev -r tsconfig-paths/register -r dotenv/config --respawn index.ts",
+		"prod": "ts-node -r tsconfig-paths/register -r dotenv/config index.ts",
 		"cli": "typetron routes",
 		"frontend": "cd frontend && ng serve",
 		"test": "mocha"
 	},
 	"dependencies": {
-		"@typetron/framework": "0.1.3",
+		"@typetron/framework": "0.2.2",
+		"@types/dotenv": "^8.2.0",
+		"dotenv": "^8.2.0",
 		"reflect-metadata": "^0.1.13",
-		"ts-node": "^9.1.0",
+		"ts-node": "^9.1.1",
 		"tsconfig-paths": "^3.9.0",
 		"typescript": "4.1.2"
 	},
@@ -30,7 +32,7 @@
 		"mocha": "^8.2.1",
 		"nyc": "^15.1.0",
 		"source-map-support": "^0.5.19",
-		"ts-node-dev": "^1.0.0",
+		"ts-node-dev": "^1.1.6",
 		"tslint": "^6.1.3"
 	}
 }

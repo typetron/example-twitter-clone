@@ -1,14 +1,11 @@
 <nz-spin class=" margin-y-large" *ngIf="!user"></nz-spin>
 <ng-container *ngIf="user">
-
-
     <div class="content">
-        <div style="; width: 100%; height: 200px; background-size: cover;background-position: center;"
+        <div class="cover"
              [style]="{backgroundImage: 'url('+ (user.cover? imgPath+'/' + user.cover : 'https://user-images.githubusercontent.com/194400/49531010-48dad180-f8b1-11e8-8d89-1e61320e1d82.png')+')'}"
         ></div>
-        <nz-row class="padding-x-large" nzAlign="bottom" nzJustify="space-between" style="position: absolute; top:150px; width: 100%;">
-            <nz-avatar [ngStyle]="{backgroundImage: 'url('+imgPath+'/' + user.photo+')', backgroundColor: '#72bbff' }" [nzSize]="100" [nzText]="user.photo ? '' : user.name" style="vertical-align: middle; color: #fff; background-size: cover;background-position: center;">
-            </nz-avatar>
+        <nz-avatar [ngStyle]="{backgroundImage: 'url('+imgPath+'/' + user.photo+')', backgroundColor: '#72bbff' }" [nzSize]="100" [nzText]="user.photo ? '' : user.name" class="avatar profile-photo"></nz-avatar>
+        <nz-row class="padding-x-medium padding-t-medium" nzAlign="bottom" nzJustify="end">
             <nz-col>
                 <nz-row [nzGutter]="8">
                     <nz-col>
@@ -46,7 +43,7 @@
                 </nz-row>
             </nz-col>
         </nz-row>
-        <div class="padding-x-large" style="margin-top: 50px;font-size: 30px;"><b>{{user.name}}</b></div>
+        <h1 class="padding-x-large no-margin" style=""><b>{{user.name}}</b></h1>
         <p class="padding-x-large" nz-typography>@{{user.username}}</p>
         <p class="padding-x-large">{{user.bio}}</p>
         <nz-row class="padding-x-large" nzGutter="16">

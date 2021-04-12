@@ -1,13 +1,13 @@
 <form (ngSubmit)="login()" [formGroup]="form" class="login-form" nz-form>
     <nz-form-item>
-        <nz-form-control [nzErrorTip]="form.controls.username.errors?.required">
+        <nz-form-control [nzErrorTip]="form.controls.username.errors | firstError">
             <nz-input-group nzPrefixIcon="user">
                 <input formControlName="username" nz-input placeholder="Username" type="text"/>
             </nz-input-group>
         </nz-form-control>
     </nz-form-item>
     <nz-form-item>
-        <nz-form-control [nzErrorTip]="form.controls.password.errors?.required">
+        <nz-form-control [nzErrorTip]="form.controls.password.errors | firstError">
             <nz-input-group nzPrefixIcon="lock">
                 <input formControlName="password" nz-input placeholder="Password" type="password"/>
             </nz-input-group>

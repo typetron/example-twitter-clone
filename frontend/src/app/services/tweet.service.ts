@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core'
 import { HttpClient } from '@angular/common/http'
 import { Tweet } from '@Data/Models/Tweet'
-import { toFormData } from '../../util'
-import { ApiService } from '../../services/api.service'
+import { ApiService } from './api.service'
+import { toFormData } from '../util'
+import { TweetForm } from '@Data/Forms/TweetForm'
 
 @Injectable({
     providedIn: 'root'
@@ -25,15 +26,15 @@ export class TweetService extends ApiService {
         })
     }
 
-    tweet(form: object): Promise<Tweet> {
+    tweet(form: TweetForm): Promise<Tweet> {
         return this.post<Tweet>('tweets', toFormData(form))
     }
 
-    reply(parent: number, form: object): Promise<Tweet> {
+    reply(parent: number, form: TweetForm): Promise<Tweet> {
         return this.post<Tweet>(`tweets/${parent}/reply`, toFormData(form))
     }
 
-    retweet(parent: number, form: object): Promise<Tweet> {
+    retweet(parent: number, form: TweetForm): Promise<Tweet> {
         return this.post<Tweet>(`tweets/${parent}/retweet`, toFormData(form))
     }
 

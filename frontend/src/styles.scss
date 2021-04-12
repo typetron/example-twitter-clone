@@ -59,6 +59,14 @@ body {
     }
 }
 
+.no-margin {
+    margin: 0;
+}
+
+.no-padding {
+    padding: 0;
+}
+
 input:focus,
 select:focus,
 textarea:focus,
@@ -93,17 +101,15 @@ app-spin {
 }
 
 .tweet-carousel {
-    box-shadow: 0 0 3px 0 gainsboro;
     height: 300px;
-    //max-width: 620px;
-    //min-width: 620px;
+    max-width: 620px;
     width: 100%;
     user-select: none;
 
     *[nz-carousel-content] {
-        background-size: contain;
+        background-repeat: no-repeat;
+        background-size: cover;
         background-position: center;
-        background-repeat: no-repeat
     }
 }
 
@@ -113,4 +119,29 @@ app-spin {
     &[ng-reflect-router-link]:focus {
         outline: none;
     }
+}
+
+
+.full-width {
+    width: 100%;
+}
+
+.full-height {
+    height: 100%;
+}
+
+.flex-no-wrap {
+    flex-wrap: nowrap;
+}
+
+.avatar {
+    vertical-align: middle;
+    color: #888;
+    background-size: cover;
+    background-position: center;
+}
+
+.highlight-tweet {
+    border-radius: 5px;
+    border: 1px solid #f1f1f1
 }

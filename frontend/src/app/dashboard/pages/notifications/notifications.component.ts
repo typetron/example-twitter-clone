@@ -1,6 +1,9 @@
 import { Component, OnDestroy, OnInit, Type } from '@angular/core'
-import { NotificationService } from '../../services/notification.service'
-import { Notification } from '../../../../../../Models/Notification'
+import { Notification } from '@Data/Models/Notification'
+import { NotificationService, UserService } from 'Services'
+import { Subject } from 'rxjs'
+import { filter, startWith, takeUntil } from 'rxjs/operators'
+import { Router } from '@angular/router'
 import {
     BaseNotificationTemplate,
     FollowNotification,
@@ -8,11 +11,7 @@ import {
     MentionNotification,
     ReplyNotification,
     RetweetNotification
-} from '../../services/models'
-import { UserService } from '../../user.service'
-import { Subject } from 'rxjs'
-import { filter, startWith, takeUntil } from 'rxjs/operators'
-import { Router } from '@angular/router'
+} from '../../models'
 
 @Component({
     selector: 'app-notifications',

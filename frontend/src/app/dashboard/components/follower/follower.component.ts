@@ -1,5 +1,5 @@
-import { Component, Input, OnInit } from '@angular/core'
-import { User } from '../../../../../../Models/User'
+import { Component, Input } from '@angular/core'
+import { User } from '@Data/Models/User'
 import { environment } from '../../../../environments/environment'
 
 @Component({
@@ -7,16 +7,10 @@ import { environment } from '../../../../environments/environment'
     templateUrl: './follower.component.html',
     styleUrls: ['./follower.component.scss']
 })
-export class FollowerComponent implements OnInit {
+export class FollowerComponent {
 
     imgPath = environment.apiUrl
 
     @Input() user!: User
-    @Input() authUser?: User
-
-    constructor() { }
-
-    ngOnInit(): void {
-    }
-
+    @Input() authUser!: User
 }

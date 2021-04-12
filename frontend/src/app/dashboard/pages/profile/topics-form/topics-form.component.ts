@@ -1,8 +1,9 @@
 import { Component, Input, OnInit } from '@angular/core'
-import { FormBuilder } from '@angular/forms'
 import { NzModalRef } from 'ng-zorro-antd/modal'
-import { UserService } from '../../../user.service'
-import { Topic } from '../../../../../../../Models/Topic'
+import { UserService } from 'Services'
+import { Topic } from '@Data/Models/Topic'
+import { FormBuilder } from '@typetron/angular'
+import { TopicsForm } from '@Data/Forms/TopicsForm'
 
 @Component({
     selector: 'app-topics-form',
@@ -14,14 +15,10 @@ export class TopicsFormComponent implements OnInit {
     @Input() user!: number
 
     topics: Topic[] = []
-
-    form = this.fb.group({
-        topics: [[]],
-    })
+    form = FormBuilder.build(TopicsForm)
 
     constructor(
         public modal: NzModalRef,
-        private fb: FormBuilder,
         private userService: UserService,
     ) {}
 

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core'
-import { TweetService } from '../../../services/tweet.service'
+import { Tweet } from '@Data/Models/Tweet'
+import { TweetService } from 'Services'
 
 @Component({
     selector: 'app-tweets-and-replies',
@@ -8,7 +9,7 @@ import { TweetService } from '../../../services/tweet.service'
 })
 export class TweetsAndRepliesComponent implements OnInit {
 
-    tweets: any[] = []
+    tweets: Tweet[] = []
 
     constructor(
         private tweetService: TweetService

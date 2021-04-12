@@ -1,14 +1,14 @@
 <nz-row *ngIf="tweet.replyParent?.id && tweet.replyParent?.user" class="margin-b-medium">
     <nz-col [nzSpan]="24">
-        <app-tweet [footer]="false" [tweet]="tweet.replyParent" style="border-radius: 5px; border: 1px solid #ddd"></app-tweet>
+        <app-tweet [footer]="false" [tweet]="tweet.replyParent" class="highlight-tweet"></app-tweet>
     </nz-col>
 </nz-row>
 
 
-<nz-row [nzGutter]="12" style="flex-wrap: nowrap;">
+<nz-row [nzGutter]="12">
     <nz-col>
         <a [routerLink]="['/', tweet.user?.username]">
-            <nz-avatar [ngStyle]="{backgroundImage: 'url('+imgPath+'/' + tweet.user.photo+')', backgroundColor: color }" [nzSize]="50" [nzText]="!tweet.user.photo ? tweet.user?.name : ''" style="vertical-align: middle;color: #888;background-size: cover;background-position: center;"></nz-avatar>
+            <nz-avatar [ngStyle]="{backgroundImage: 'url('+imgPath+'/' + tweet.user.photo+')', backgroundColor: color }" [nzSize]="50" [nzText]="!tweet.user.photo ? tweet.user?.name : ''" class="avatar"></nz-avatar>
         </a>
     </nz-col>
     <nz-col [nzFlex]="1" style="width: 400px;">
@@ -17,7 +17,7 @@
             <nz-row nzJustify="space-between">
                 <nz-col [nzFlex]="1">
                     <a [routerLink]="['/', tweet.user?.username]">
-                        <h3 style="display: inline-block; margin-right: 8px;">{{tweet.user?.name}}</h3>
+                        <h3 class="margin-r-small" style="display: inline-block;">{{tweet.user?.name}}</h3>
                         <span nz-typography>@{{tweet.user?.username}}</span>
                     </a>
                     -
@@ -61,7 +61,7 @@
 
 <nz-row *ngIf="tweet.retweetParent?.id && tweet.retweetParent?.user">
     <nz-col [nzSpan]="24">
-        <app-tweet [tweet]="tweet.retweetParent" style="border-radius: 5px; border: 1px solid #ddd" [footer]="false"></app-tweet>
+        <app-tweet [footer]="false" [tweet]="tweet.retweetParent" class="highlight-tweet"></app-tweet>
     </nz-col>
 </nz-row>
 
@@ -71,7 +71,6 @@
     </nz-col>
 </nz-row>
 
-
 <nz-dropdown-menu #menu="nzDropdownMenu">
     <ul nz-menu nzSelectable>
         <li nz-menu-item nz-typography nzType="danger" (click)="remove()">
@@ -79,7 +78,6 @@
         </li>
     </ul>
 </nz-dropdown-menu>
-
 
 <nz-row *ngFor="let reply of replies" class="margin-l-medium">
     <nz-divider></nz-divider>

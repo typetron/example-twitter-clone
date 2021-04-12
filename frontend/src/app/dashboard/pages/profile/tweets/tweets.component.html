@@ -1,5 +1,10 @@
 <app-spin *ngIf="loading"></app-spin>
-<h3 *ngIf="!loading && !tweets.length" class="text-center">There are no tweets here</h3>
+<h3 *ngIf="!loading && !tweets.length" class="text-center">
+    There are no tweets here
+</h3>
+<h4 *ngIf="!loading && !tweets.length" class="text-center">
+    Subscribe to some topics or post a few tweets.
+</h4>
 <ng-container *ngIf="tweets.length">
     <app-tweet (delete)="reset();load()" (tweeted)="reset();load()" *ngFor="let tweet of tweets" [tweet]="tweet"></app-tweet>
 </ng-container>
