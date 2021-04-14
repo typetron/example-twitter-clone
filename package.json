@@ -15,7 +15,7 @@
 		"test": "mocha"
 	},
 	"dependencies": {
-		"@typetron/framework": "0.2.2",
+		"@typetron/framework": "0.2.3",
 		"@types/dotenv": "^8.2.0",
 		"dotenv": "^8.2.0",
 		"reflect-metadata": "^0.1.13",
