@@ -26,10 +26,12 @@ export class HomeController {
         await this.user.load('topics')
         const userHashtags = await Hashtag.whereIn('topic', this.user.topics.items.pluck('id')).get()
         const tweets = this.getTweetsQuery(page, limit)
-            .whereIn(
+        if (userHashtags.length) {
+            tweets.whereIn(
                 'id',
                 query => query.table('hashtags_tweets').select('tweetId').whereIn('hashTagId', userHashtags.pluck('id'))
             )
+        }
 
         return TweetModel.from(tweets.get())
     }

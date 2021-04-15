@@ -16,6 +16,6 @@ export class RegisterForm extends Form {
     password: string
 
     @Field()
-    @Rules(Required)
+    @Rules(Required('Password confirmation is required'))
     passwordConfirmation: string
 }

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core'
+import { Component } from '@angular/core'
 import { Router } from '@angular/router'
 import { AuthService } from 'Services'
 import { FormBuilder } from '@typetron/angular'
@@ -10,7 +10,7 @@ import { isValid } from '../../util'
     templateUrl: './register.component.html',
     styleUrls: ['./register.component.scss']
 })
-export class RegisterComponent implements OnInit {
+export class RegisterComponent {
 
     form = FormBuilder.build(RegisterForm)
     loading = false
@@ -20,18 +20,14 @@ export class RegisterComponent implements OnInit {
         private authService: AuthService
     ) {}
 
-    ngOnInit(): void {
-        console.log('form', this.form)
-    }
-
     async register(): Promise<void> {
-
         if (!isValid(this.form)) {
             return
         }
 
         this.loading = true
-        await this.authService.register(this.form.value).catch(() => this.loading = false)
+        await this.authService.register(this.form.value).finally(() => this.loading = false)
+        this.loading = true
         await this.router.navigate(['/home'])
         this.loading = false
     }
