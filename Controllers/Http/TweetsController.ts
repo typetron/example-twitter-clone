@@ -27,7 +27,13 @@ export class TweetsController {
     @Get(':Tweet')
     async get(tweet: Tweet) {
         await tweet.loadCount('likes', 'replies', 'retweets')
-        await tweet.load('user', 'media', 'retweetParent.user')
+        await tweet.load(
+            'user',
+            'media',
+            'replyParent.user',
+            'retweetParent.user',
+            ['likes', query => query.where('userId', this.user.id)]
+        )
         return TweetModel.from(tweet)
     }
 
@@ -90,7 +96,7 @@ export class TweetsController {
         }
 
         await tweet.loadCount('likes', 'replies', 'retweets')
-        await tweet.load('media', 'likes', 'user', 'retweetParent.user')
+        await tweet.load('media', 'likes', 'user', 'retweetParent.user', 'replyParent.user')
 
         return TweetModel.from(tweet)
     }

@@ -1,10 +1,11 @@
-<nz-row [nzGutter]="[8, 8]">
+<nz-row [nzGutter]="[8, 8]" class="flex-no-wrap">
     <nz-col>
         <i [nzType]="notification.icon" class="icon" nz-icon></i>
     </nz-col>
     <nz-col [nzFlex]="1">
         <nz-avatar
             *ngFor="let user of notification.users"
+            (click)="$event.stopPropagation(); goToUser(user)"
             [ngStyle]="{backgroundImage: 'url('+imgPath+'/' + user.photo+')', backgroundColor: color }" [nzSize]="50" [nzText]="!user.photo ? user?.name : ''"
             class="avatar margin-r-small"
         >

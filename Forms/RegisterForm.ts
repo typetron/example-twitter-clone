@@ -1,5 +1,6 @@
 import { Field, Form, Rules } from '@Typetron/Forms'
 import { Email, MinLength, Required } from '@Typetron/Validation'
+import { IsUsername } from 'App/Validators/IsUsername'
 
 export class RegisterForm extends Form {
 
@@ -8,7 +9,7 @@ export class RegisterForm extends Form {
     email: string
 
     @Field()
-    @Rules(Required)
+    @Rules(Required, IsUsername)
     username: string
 
     @Field()

@@ -30,6 +30,7 @@ export class AuthController {
 
         user = await User.create({
             username: form.username,
+            name: form.username.replace(/\s/gm, '_'),
             email: form.email,
             password: await Crypt.hash(form.password, this.authConfig.saltRounds),
         })
