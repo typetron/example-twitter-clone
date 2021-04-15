@@ -1,33 +1,33 @@
 <form (ngSubmit)="form.markAllAsTouched(); !form.invalid && register()" [formGroup]="form" autocomplete="off" class="form" nz-form>
     <nz-form-item>
-        <nz-form-control nzErrorTip="Please input your username!">
+        <nz-form-control [nzErrorTip]="form.controls.username.errors | firstError">
             <nz-input-group nzPrefixIcon="user">
                 <input formControlName="username" nz-input placeholder="Username" type="text"/>
             </nz-input-group>
         </nz-form-control>
     </nz-form-item>
     <nz-form-item>
-        <nz-form-control nzErrorTip="Please input your email!">
+        <nz-form-control [nzErrorTip]="form.controls.email.errors | firstError">
             <nz-input-group nzPrefixIcon="user">
-                <input autocomplete="off" formControlName="email" nz-input placeholder="Email"/>
+                <input formControlName="email" nz-input placeholder="Email"/>
             </nz-input-group>
         </nz-form-control>
     </nz-form-item>
     <nz-form-item>
-        <nz-form-control nzErrorTip="Please input your password!">
+        <nz-form-control [nzErrorTip]="form.controls.password.errors | firstError">
             <nz-input-group nzPrefixIcon="lock">
                 <input formControlName="password" nz-input placeholder="Password" type="password"/>
             </nz-input-group>
         </nz-form-control>
     </nz-form-item>
     <nz-form-item>
-        <nz-form-control nzErrorTip="Please repeat your password!">
+        <nz-form-control [nzErrorTip]="form.controls.passwordConfirmation.errors | firstError">
             <nz-input-group nzPrefixIcon="lock">
                 <input formControlName="passwordConfirmation" nz-input placeholder="Repeat password" type="password"/>
             </nz-input-group>
         </nz-form-control>
     </nz-form-item>
-    <button [nzLoading]="loading" [nzType]="'primary'" class="form-button form-margin" nz-button>
+    <button [nzLoading]="loading" class="form-button form-margin" nz-button nzType="primary">
         Register
     </button>
     Already have and account? <a routerLink="/login"> Login here! </a>

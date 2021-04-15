@@ -12,9 +12,8 @@ import { isValid } from '../../util'
 })
 export class LoginComponent {
 
-    loading = false
-
     form = FormBuilder.build(LoginForm)
+    loading = false
 
     constructor(
         private router: Router,
@@ -26,8 +25,7 @@ export class LoginComponent {
             return
         }
         this.loading = true
-        await this.authService.login(this.form.value).finally(() => this.loading = false)
-        this.loading = true
+        await this.authService.login(this.form.value).catch(() => this.loading = false)
         await this.router.navigate(['/home'])
         this.loading = false
     }

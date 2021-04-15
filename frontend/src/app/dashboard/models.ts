@@ -1,6 +1,6 @@
-import { User } from '../../../../../Models/User'
-import { Notification } from '../../../../../Models/Notification'
-import { Tweet } from '../../../../../Models/Tweet'
+import { User } from '@Data/Models/User'
+import { Notification } from '@Data/Models/Notification'
+import { Tweet } from '@Data/Models/Tweet'
 
 export interface NotificationTemplate {
     icon: string
