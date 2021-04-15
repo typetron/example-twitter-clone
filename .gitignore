@@ -5,3 +5,9 @@ node_modules
 coverage
 .env
 database-local.sqlite
+public/*
+!public/index.html
+!public/avatar.jpg
+!public/cover.jpg
+!public/screenshot1.png
+!public/screenshot2.png
