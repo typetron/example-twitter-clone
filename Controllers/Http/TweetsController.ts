@@ -8,11 +8,11 @@ import { Like } from 'App/Entities/Like'
 import { Tweet as TweetModel } from '@Data/Models/Tweet'
 import { Inject } from '@Typetron/Container'
 import { File, Storage } from '@Typetron/Storage'
-import { Http, HttpError } from '@Typetron/Web'
+import { Http, HttpError } from '@Typetron/Router/Http'
 import { Notification } from 'App/Entities/Notification'
 import { Hashtag } from 'App/Entities/Hashtag'
 import { Media } from 'App/Entities/Media'
-import { EntityObject } from '@Typetron/Database'
+import { EntityObject, ID } from '@Typetron/Database'
 
 @Controller('tweets')
 @Middleware(AuthMiddleware)
@@ -112,7 +112,7 @@ export class TweetsController {
         const mediaFiles = await Promise.all(
             form.media.map(file => this.storage.save(file, 'public/tweets-media'))
         )
-        await tweet.media.save(...mediaFiles.map(media => new Media({path: media})))
+        await tweet.media.saveMany(...mediaFiles.map(media => new Media({path: media})))
 
         await this.addHashTags(tweet)
         await this.sendMentionNotifications(tweet)
@@ -148,7 +148,7 @@ export class TweetsController {
         }
     }
 
-    private async addNotification(tweet: Tweet, userId: number, type: Notification['type']) {
+    private async addNotification(tweet: Tweet, userId: ID, type: Notification['type']) {
         const notification = await Notification.create({
             user: userId,
             type,

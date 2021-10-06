@@ -6,7 +6,7 @@
                     <button nz-button *ngIf="!form.controls.topics.value.includes(item.id)" (click)="form.controls.topics.value.push(item.id)">
                         Add
                     </button>
-                    <button nz-button *ngIf="form.controls.topics.value.includes(item.id)" (click)="form.controls.topics.value.remove(item.id)" nzType="danger">
+                    <button (click)="form.controls.topics.value.remove(item.id)" *ngIf="form.controls.topics.value.includes(item.id)" nz-button nzDanger nzType="primary">
                         Remove
                     </button>
                 </nz-list-item-action>

@@ -7,7 +7,7 @@ class HomeControllerTest extends TestCase {
 
     async before() {
         await super.before()
-        this.login(await this.createUser())
+        await this.actingAs(await this.createUser())
     }
 
     @test

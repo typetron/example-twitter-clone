@@ -6,7 +6,6 @@ import { LoginForm } from 'App/Forms/LoginForm'
 import { Inject } from '@Typetron/Container'
 import { Auth } from '@Typetron/Framework/Auth'
 import { AuthConfig } from '@Typetron/Framework'
-import { Crypt } from '@Typetron/Encryption'
 
 @Controller()
 export class AuthController {
@@ -28,13 +27,7 @@ export class AuthController {
             throw new Error('Passwords don\'t match')
         }
 
-        user = await User.create({
-            username: form.username,
-            name: form.username.replace(/\s/gm, '_'),
-            email: form.email,
-            password: await Crypt.hash(form.password, this.authConfig.saltRounds),
-        })
-        return UserModel.from(user)
+        return UserModel.from(this.auth.register(form.email, form.password))
     }
 
     @Post('login')

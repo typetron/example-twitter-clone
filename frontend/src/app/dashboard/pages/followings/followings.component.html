@@ -2,4 +2,6 @@
     <h3>Following <span *ngIf="user" nz-typography nzType="secondary">{{user.name}} @{{user.username}}</span></h3>
 </div>
 
-<app-follower *ngFor="let user of following" [user]="user" [authUser]="auth.user()"></app-follower>
+<ng-container *ngIf="auth.user() as authUser">
+    <app-follower *ngFor="let user of following" [authUser]="authUser" [user]="user"></app-follower>
+</ng-container>

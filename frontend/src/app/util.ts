@@ -9,11 +9,11 @@ export function toFormData(data: object): FormData {
 export function buildFormData(formData: FormData, data: object | undefined | null, parentKey?: string): void {
     if (data && typeof data === 'object' && !(data instanceof Date) && !(data instanceof File) && !(data instanceof Blob)) {
         Object.keys(data).forEach(key => {
-            buildFormData(formData, data[key], parentKey ? `${parentKey}` : key)
+            buildFormData(formData, data[key as keyof object], parentKey ? `${parentKey}` : key)
         })
     } else {
         if (data !== undefined && data !== null) {
-            formData.append(parentKey, data as Blob)
+            formData.append(parentKey as string, data as Blob)
         }
         // const value = data !== null ? '' : data
         //

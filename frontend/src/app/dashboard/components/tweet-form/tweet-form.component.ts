@@ -5,6 +5,7 @@ import { TweetService } from 'Services'
 import { TweetForm } from '@Data/Forms/TweetForm'
 import { FormBuilder } from '@typetron/angular'
 import { isValid } from '../../../util'
+import { NzUploadFile } from 'ng-zorro-antd/upload'
 
 @Component({
     selector: 'app-tweet-form',
@@ -51,9 +52,9 @@ export class TweetFormComponent implements OnInit {
         this.form.reset()
     }
 
-    beforeUpload(): (file: File) => boolean {
-        return (file: File) => {
-            this.addMedia(file)
+    beforeUpload(): (file: NzUploadFile) => boolean {
+        return (file: NzUploadFile) => {
+            this.addMedia(file as unknown as File)
             return false
         }
     }

@@ -5,7 +5,8 @@ import { Pipe, PipeTransform } from '@angular/core'
 })
 export class FirstErrorPipe implements PipeTransform {
 
-    transform(errors: Record<string, string>): string {
+    // tslint:disable-next-line:no-any
+    transform(errors: Record<string, any> | null): string {
         return Object.values(errors ?? {})[0]
     }
 }

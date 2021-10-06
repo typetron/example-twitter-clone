@@ -14,7 +14,7 @@
 		"eofline": false,
 		"forin": true,
 		"ban-types": true,
-		"only-arrow-functions": true,
+		"only-arrow-functions": false,
 		"import-blacklist": [
 			true,
 			"rxjs/Rx"

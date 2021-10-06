@@ -11,7 +11,7 @@ class UserControllerTest extends TestCase {
 
     async before() {
         await super.before()
-        this.login(this.user = await this.createUser())
+        await this.actingAs(this.user = await this.createUser())
     }
 
     @test

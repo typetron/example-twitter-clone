@@ -8,7 +8,7 @@ class TweetControllerTest extends TestCase {
 
     async before() {
         await super.before()
-        this.login(await this.createUser())
+        await this.actingAs(await this.createUser())
     }
 
     @test
@@ -25,7 +25,6 @@ class TweetControllerTest extends TestCase {
     async repliesToTweet() {
         const tweet = await Tweet.create({content: 'tweet'}) as Tweet
         const response = await this.post(['tweets.reply', {Tweet: tweet.id}], {
-            Tweet: tweet.id,
             content: 'this is a reply'
         })
         expect(response.body).to.deep.include({

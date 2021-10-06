@@ -4,6 +4,7 @@ import { User } from '@Data/Models/User'
 import { environment } from '../../../../../environments/environment'
 import { FormBuilder } from '@typetron/angular'
 import { UserForm } from '@Data/Forms/UserForm'
+import { NzUploadFile } from 'ng-zorro-antd/upload'
 
 @Component({
     selector: 'app-edit-form',
@@ -31,16 +32,16 @@ export class EditFormComponent implements OnInit {
         this.files.photo = this.user.photo ? `${environment.apiUrl}/${this.user.photo}` : ''
     }
 
-    beforeUpload(field: 'cover' | 'photo'): (file: File) => boolean {
-        return (file: File) => {
+    beforeUpload(field: 'cover' | 'photo'): (file: NzUploadFile, files: NzUploadFile[]) => boolean {
+        return (file: NzUploadFile, files: NzUploadFile[]) => {
             const reader = new FileReader()
             reader.onload = (event) => {
-                this.files[field] = event.target.result as string
+                this.files[field] = event.target?.result as string
                 this.form.patchValue({
                     [field]: file
                 })
             }
-            reader.readAsDataURL(file) // convert to base64 string
+            reader.readAsDataURL(file as unknown as File) // convert to base64 string
             return false
         }
     }

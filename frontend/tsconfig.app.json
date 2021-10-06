@@ -1,29 +1,9 @@
 /* To learn more about this file see: https://angular.io/config/tsconfig. */
 {
-    "extends": "./tsconfig.base.json",
+    "extends": "./tsconfig.json",
     "compilerOptions": {
         "outDir": "./out-tsc/app",
-        "types": [
-            "reflect-metadata"
-        ],
-        "strictPropertyInitialization": false,
-        "paths": {
-            "Services": [
-                "./src/app/services"
-            ],
-            "App/Validators/*": [
-                "../Validators/*"
-            ],
-            "@Typetron/*": [
-                "../node_modules/@typetron/framework/*"
-            ],
-            "@Data/Models/*": [
-                "../Models/*"
-            ],
-            "@Data/Forms/*": [
-                "../Forms/*"
-            ]
-        }
+        "types": []
     },
     "files": [
         "src/main.ts",

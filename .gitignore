@@ -5,7 +5,9 @@ node_modules
 coverage
 .env
 database-local.sqlite
+database-local2.sqlite
 public/*
+frontend-old
 !public/index.html
 !public/avatar.jpg
 !public/cover.jpg

@@ -1,6 +1,6 @@
 <nz-spin class=" margin-y-large" *ngIf="!user"></nz-spin>
 <ng-container *ngIf="user">
-    <div class="content">
+    <div *ngIf="authService.user() as authUser" class="content">
         <div class="cover"
              [style]="{backgroundImage: 'url('+ (user.cover? imgPath+'/' + user.cover : 'https://user-images.githubusercontent.com/194400/49531010-48dad180-f8b1-11e8-8d89-1e61320e1d82.png')+')'}"
         ></div>
@@ -11,7 +11,7 @@
                     <nz-col>
                         <button
                             (click)="follow(user)"
-                            *ngIf="authService.user().id !== user.id && !user.followers.findWhere('id', authService.user().id)"
+                            *ngIf="authUser.id !== user.id && !user.followers?.findWhere('id', authUser.id)"
                             nz-button
                             nzType="primary"
                         >
@@ -21,20 +21,21 @@
                     <nz-col>
                         <button
                             (click)="unfollow(user)"
-                            *ngIf="authService.user().id !== user.id && user.followers.findWhere('id', authService.user().id)"
+                            *ngIf="authUser.id !== user.id && user.followers?.findWhere('id', authUser.id)"
                             nz-button
-                            nzType="danger"
+                            nzDanger
+                            nzType="primary"
                         >
                             Unfollow
                         </button>
                     </nz-col>
-                    <nz-col *ngIf="authService.user().id === user.id">
+                    <nz-col *ngIf="authUser.id === user.id">
                         <button (click)="showTopicsModal(user)" nz-button nzType="primary">
                             <i nz-icon nzType="menu"></i>
                             Topics
                         </button>
                     </nz-col>
-                    <nz-col *ngIf="authService.user().id === user.id">
+                    <nz-col *ngIf="authUser.id === user.id">
                         <button (click)="showEditModal()" nz-button nzType="primary">
                             <i nz-icon nzType="edit"></i>
                             Edit profile
@@ -43,7 +44,7 @@
                 </nz-row>
             </nz-col>
         </nz-row>
-        <h1 class="padding-x-large no-margin" style=""><b>{{user.name}}</b></h1>
+        <h1 class="padding-x-large no-margin"><b>{{user.name}}</b></h1>
         <p class="padding-x-large" nz-typography>@{{user.username}}</p>
         <p class="padding-x-large">{{user.bio}}</p>
         <nz-row class="padding-x-large" nzGutter="16">

@@ -18,10 +18,10 @@
         </nz-col>
         <nz-col>
             <ng-container *ngIf="user.id !== authUser.id; else thisIsYou">
-                <button *ngIf="user.followers.findWhere('id', authUser.id)" nz-button nzType="danger">
+                <button *ngIf="user.followers?.findWhere('id', authUser.id)" nz-button nzDanger nzType="primary">
                     Unfollow
                 </button>
-                <button *ngIf="!user.followers.findWhere('id', authUser.id)" nz-button nzType="primary">
+                <button *ngIf="!user.followers?.findWhere('id', authUser.id)" nz-button nzType="primary">
                     Follow
                 </button>
             </ng-container>

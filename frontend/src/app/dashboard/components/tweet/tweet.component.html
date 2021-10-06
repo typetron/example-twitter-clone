@@ -1,6 +1,6 @@
 <nz-row *ngIf="tweet.replyParent?.id && tweet.replyParent?.user" class="margin-b-medium">
-    <nz-col [nzSpan]="24">
-        <app-tweet [footer]="false" [tweet]="tweet.replyParent" class="highlight-tweet"></app-tweet>
+    <nz-col *ngIf="tweet.replyParent as reply" [nzSpan]="24">
+        <app-tweet [footer]="false" [tweet]="reply" class="highlight-tweet"></app-tweet>
     </nz-col>
 </nz-row>
 
@@ -23,7 +23,7 @@
                     -
                     <span nz-typography>{{tweet.createdAt | date: 'dd MMMM y HH:mm'}}</span>
                 </nz-col>
-                <nz-col *ngIf="tweet.user.id === auth.user().id">
+                <nz-col *ngIf="tweet.user.id === auth.user()?.id">
                     <button nz-dropdown [nzDropdownMenu]="menu" nzTrigger="click" nz-button nzType="text" (click)="$event.stopPropagation(); $event.preventDefault()">
                         <i nz-icon nzType="down"></i>
                     </button>
@@ -60,8 +60,8 @@
 </nz-row>
 
 <nz-row *ngIf="tweet.retweetParent?.id && tweet.retweetParent?.user">
-    <nz-col [nzSpan]="24">
-        <app-tweet [footer]="false" [tweet]="tweet.retweetParent" class="highlight-tweet"></app-tweet>
+    <nz-col *ngIf="tweet.retweetParent as parent" [nzSpan]="24">
+        <app-tweet [footer]="false" [tweet]="parent" class="highlight-tweet"></app-tweet>
     </nz-col>
 </nz-row>
 

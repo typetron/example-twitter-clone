@@ -1,4 +1,12 @@
-@import './theme.scss';
+$small-spacing: 8px;
+$medium-spacing: 16px;
+$large-spacing: 24px;
+
+$space: (
+    small: $small-spacing,
+    medium: $medium-spacing,
+    large: $large-spacing,
+);
 
 html {
     overflow: hidden !important;

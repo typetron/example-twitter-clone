@@ -7,11 +7,15 @@ nz-sider {
         [nz-menu-item], nz-badge {
             font-size: 18px;
             font-weight: bold;
-            margin-bottom: 24px;
 
             [nz-icon] {
                 font-size: 20px;
             }
+        }
+
+        [nz-menu-item] {
+            margin-bottom: 24px;
+
         }
     }
 }
