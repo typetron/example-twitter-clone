@@ -18,7 +18,7 @@ export class AuthController {
 
     @Post('register')
     async register(form: RegisterForm) {
-        let user = await User.where('email', form.email).orWhere('username', form.username).first()
+        const user = await User.where('email', form.email).orWhere('username', form.username).first()
         if (user) {
             throw new Error('User already exists')
         }
@@ -27,7 +27,11 @@ export class AuthController {
             throw new Error('Passwords don\'t match')
         }
 
-        return UserModel.from(this.auth.register(form.email, form.password))
+        const newUser = await this.auth.register<User>(form.email, form.password)
+        newUser.username = form.username
+        await newUser.save()
+
+        return UserModel.from(newUser)
     }
 
     @Post('login')
