@@ -1,5 +1,5 @@
 import { DatabaseConfig } from '@Typetron/Framework'
-import { MysqlDriver, SqliteDriver } from '@Typetron/Database/Drivers'
+import { MysqlDriver, SqliteDriver } from '@Typetron/Database'
 
 export default new DatabaseConfig({
     entities: './Entities',

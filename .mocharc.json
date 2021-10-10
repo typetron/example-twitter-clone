@@ -9,5 +9,5 @@
 		"source-map-support/register",
 		"@typetron/framework/Support"
 	],
-	"spec": "test/**/*Test.ts"
+	"spec": "tests/**/*Test.ts"
 }
