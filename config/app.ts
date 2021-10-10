@@ -15,7 +15,11 @@ export default new AppConfig({
         DatabaseProvider,
         RoutingProvider,
     ],
-    staticAssets: {
-        '': ['public']
-    }
-});
+    staticAssets: [
+        {
+            url: '.*',
+            path: 'public'
+        }
+    ]
+})
+
