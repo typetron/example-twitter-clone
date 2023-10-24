@@ -1,6 +1,6 @@
 import { suite, test } from '@testdeck/mocha'
 import { expect } from 'chai'
-import { TestCase } from 'Test/TestCase'
+import { TestCase } from 'Tests/TestCase'
 
 @suite
 class HomeControllerTest extends TestCase {

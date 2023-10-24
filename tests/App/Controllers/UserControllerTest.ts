@@ -1,6 +1,6 @@
 import { suite, test } from '@testdeck/mocha'
 import { expect } from 'chai'
-import { TestCase } from 'Test/TestCase'
+import { TestCase } from 'Tests/TestCase'
 import { File } from '@Typetron/Storage'
 import { User } from 'App/Entities/User'
 import { User as UserModel } from '@Data/Models/User'
@@ -17,10 +17,10 @@ class UserControllerTest extends TestCase {
     @test
     async updatesUser() {
         const photo = new File('avatar.jpg')
-        photo.directory = 'test'
+        photo.directory = 'tests'
         photo.saved = true
         const cover = new File('cover.jpg')
-        cover.directory = 'test'
+        cover.directory = 'tests'
         cover.saved = true
         const response = await this.put('users.update', {
             name: 'Joe Joe',

@@ -6,8 +6,8 @@ import {
     HttpRequest
 } from '@angular/common/http'
 import { Injectable } from '@angular/core'
-import { catchError } from 'rxjs/operators'
-import { Observable, throwError } from 'rxjs'
+import { catchError, distinctUntilChanged } from 'rxjs/operators'
+import { Observable, Subject, throwError } from 'rxjs'
 import { Router } from '@angular/router'
 import { NzMessageService } from 'ng-zorro-antd/message'
 import { AuthService } from './auth.service'
@@ -15,11 +15,17 @@ import { AuthService } from './auth.service'
 @Injectable()
 export class HttpInterceptor implements BaseHttpInterceptor {
 
+    private error$ = new Subject<string>()
+
     constructor(
         private router: Router,
         private authService: AuthService,
         private message: NzMessageService,
-    ) {}
+    ) {
+        this.error$.pipe(distinctUntilChanged()).subscribe(message => {
+            this.message.error(message)
+        })
+    }
 
     intercept(request: HttpRequest<object>, next: HttpHandler): Observable<HttpEvent<any>> {
         request.headers.set('Accept-Type', 'application/json')
@@ -34,7 +40,7 @@ export class HttpInterceptor implements BaseHttpInterceptor {
                 if (errorResponse.status === 422) {
                     this.handleValidationErrors(errorResponse.error)
                 } else {
-                    this.message.error(errorResponse.error.message)
+                    this.error$.next(errorResponse.error.message)
                 }
 
                 return throwError(errorResponse)
@@ -46,7 +52,7 @@ export class HttpInterceptor implements BaseHttpInterceptor {
         Object.keys(error.message).forEach(formFieldKey => {
             const errors = error.message[formFieldKey]
             Object.values(errors).forEach(formError => {
-                this.message.error(formError)
+                this.error$.next(formError)
             })
         })
     }

@@ -102,7 +102,7 @@ export class TweetsController {
     }
 
     private async createTweet(form: TweetForm, additional: Partial<EntityObject<Tweet>> = {}) {
-        const tweet = new Tweet({...form, ...additional})
+        const tweet = Tweet.new({...form, ...additional})
         await this.user.tweets.save(tweet)
 
         if (form.media instanceof File) {
@@ -112,7 +112,7 @@ export class TweetsController {
         const mediaFiles = await Promise.all(
             form.media.map(file => this.storage.save(file, 'public/tweets-media'))
         )
-        await tweet.media.saveMany(...mediaFiles.map(media => new Media({path: media})))
+        await tweet.media.saveMany(...mediaFiles.map(media => Media.new({path: media})))
 
         await this.addHashTags(tweet)
         await this.sendMentionNotifications(tweet)

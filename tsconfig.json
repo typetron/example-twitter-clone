@@ -21,8 +21,8 @@
 			"App/*": [
 				"*"
 			],
-			"Test/*": [
-				"test/*"
+			"Tests/*": [
+				"tests/*"
 			],
 			"@Typetron/*": [
 				"node_modules/@typetron/framework/*"
