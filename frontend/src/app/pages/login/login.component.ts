@@ -2,8 +2,7 @@ import { Component } from '@angular/core'
 import { Router } from '@angular/router'
 import { AuthService } from 'Services'
 import { LoginForm } from '@Data/Forms/LoginForm'
-import { FormBuilder } from '@typetron/angular'
-import { isValid } from '../../util'
+import { FormBuilder, isValid } from '../../util'
 
 @Component({
     selector: 'app-login',

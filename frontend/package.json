@@ -18,7 +18,6 @@
         "@angular/platform-browser": "~12.1.0-",
         "@angular/platform-browser-dynamic": "~12.1.0-",
         "@angular/router": "~12.1.0-",
-        "@typetron/angular": "^0.2.3",
         "@typetron/framework": "^0.3.5",
         "ng-zorro-antd": "^12.0.1",
         "rxjs": "~6.6.0",

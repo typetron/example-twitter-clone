@@ -2,9 +2,9 @@ import { Component, Input, OnInit } from '@angular/core'
 import { NzModalRef } from 'ng-zorro-antd/modal'
 import { User } from '@Data/Models/User'
 import { environment } from '../../../../../environments/environment'
-import { FormBuilder } from '@typetron/angular'
 import { UserForm } from '@Data/Forms/UserForm'
 import { NzUploadFile } from 'ng-zorro-antd/upload'
+import { FormBuilder } from '../../../../util'
 
 @Component({
     selector: 'app-edit-form',

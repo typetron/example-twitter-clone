@@ -1,9 +1,8 @@
 import { Component } from '@angular/core'
 import { Router } from '@angular/router'
 import { AuthService } from 'Services'
-import { FormBuilder } from '@typetron/angular'
 import { RegisterForm } from '@Data/Forms/RegisterForm'
-import { isValid } from '../../util'
+import { FormBuilder, isValid } from '../../util'
 
 @Component({
     selector: 'app-register',

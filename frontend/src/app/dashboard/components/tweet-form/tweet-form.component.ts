@@ -3,8 +3,7 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core'
 import { Tweet } from '@Data/Models/Tweet'
 import { TweetService } from 'Services'
 import { TweetForm } from '@Data/Forms/TweetForm'
-import { FormBuilder } from '@typetron/angular'
-import { isValid } from '../../../util'
+import { FormBuilder, isValid } from '../../../util'
 import { NzUploadFile } from 'ng-zorro-antd/upload'
 
 @Component({

@@ -2,8 +2,8 @@ import { Component, Input, OnInit } from '@angular/core'
 import { NzModalRef } from 'ng-zorro-antd/modal'
 import { UserService } from 'Services'
 import { Topic } from '@Data/Models/Topic'
-import { FormBuilder } from '@typetron/angular'
 import { TopicsForm } from '@Data/Forms/TopicsForm'
+import { FormBuilder } from '../../../../util'
 
 @Component({
     selector: 'app-topics-form',
